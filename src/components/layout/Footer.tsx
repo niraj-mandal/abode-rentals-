@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Home as HomeIcon } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function Footer() {
@@ -15,7 +15,7 @@ export function Footer() {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
@@ -31,94 +31,74 @@ export function Footer() {
       id="contact"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: "-50px" }}
       variants={containerVariants}
-      className="w-full border-t border-white/5 bg-[#0F172A] text-white relative z-10 font-sans mt-32"
+      className="w-full bg-[#22272E] text-white relative z-10 font-sans mt-32 border-t border-white/5"
     >
-      <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row justify-between gap-12">
-        <motion.div variants={itemVariants} className="max-w-xs flex flex-col gap-6">
-          <Link href="/" className="flex items-center gap-2">
-            <HomeIcon className="w-7 h-7 text-secondary stroke-[2] shrink-0" />
-            <div className="flex flex-col">
-              <span className="text-sm font-bold font-sans tracking-wide text-white leading-none">
-                Abode Rental
-              </span>
-              <span className="text-[7.5px] font-semibold tracking-widest text-slate-400 font-sans mt-1">
-                PROPERTY MANAGEMENT
-              </span>
-            </div>
-          </Link>
-          <p className="text-slate-400 leading-relaxed font-light text-sm">
-            Professional property management that protects your investment and maximizes your returns.
+      <div className="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row justify-between gap-12 md:gap-16">
+        
+        {/* Left Column - About & Socials */}
+        <motion.div variants={itemVariants} className="flex flex-col md:w-5/12 md:pr-4">
+          <h3 className="text-xl font-bold text-white mb-6 tracking-wide">About the company</h3>
+          <p className="text-[#9ca3af] leading-relaxed text-[15px] mb-8 font-light">
+            Professional property management that protects your investment and maximizes your returns. We specialize in providing top-tier service for property owners and tenants alike.
           </p>
-          {/* Social media icons with glow effect */}
-          <div className="flex gap-4">
-            <a 
-              href="#" 
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-secondary/20 hover:text-secondary hover:shadow-[0_0_12px_rgba(217,119,69,0.5)] border border-transparent hover:border-[#D97745]/30 transition-all duration-300 flex items-center justify-center text-slate-400" 
-              aria-label="Facebook"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          
+          <div className="flex gap-3">
+            <a href="#" className="w-9 h-9 rounded bg-[#323842] hover:bg-[#444c56] transition-colors flex items-center justify-center text-white" aria-label="Facebook">
+              <svg className="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
             </a>
-            <a 
-              href="#" 
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-secondary/20 hover:text-secondary hover:shadow-[0_0_12px_rgba(217,119,69,0.5)] border border-transparent hover:border-[#D97745]/30 transition-all duration-300 flex items-center justify-center text-slate-400" 
-              aria-label="Twitter"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-            </a>
-            <a 
-              href="#" 
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-secondary/20 hover:text-secondary hover:shadow-[0_0_12px_rgba(217,119,69,0.5)] border border-transparent hover:border-[#D97745]/30 transition-all duration-300 flex items-center justify-center text-slate-400" 
-              aria-label="Instagram"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <a href="#" className="w-9 h-9 rounded bg-[#323842] hover:bg-[#444c56] transition-colors flex items-center justify-center text-white" aria-label="Instagram">
+              <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 flex-1 max-w-4xl lg:ml-12">
-          <motion.div variants={itemVariants}>
-            <h4 className="font-semibold text-xs uppercase tracking-wider mb-4 text-white">Quick Links</h4>
-            <ul className="space-y-3 text-xs font-light text-slate-400">
-              <li><Link href="/" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Home</Link></li>
-              <li><Link href="/#services" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Services</Link></li>
-              <li><Link href="/#markets" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Markets</Link></li>
-              <li><Link href="/about" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">About Us</Link></li>
-              <li><Link href="/#contact" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Contact</Link></li>
-            </ul>
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <h4 className="font-semibold text-xs uppercase tracking-wider mb-4 text-white">Resources</h4>
-            <ul className="space-y-3 text-xs font-light text-slate-400">
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Owner Portal</Link></li>
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Tenant Portal</Link></li>
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Blog</Link></li>
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">FAQs</Link></li>
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Rental Market Reports</Link></li>
-            </ul>
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <h4 className="font-semibold text-xs uppercase tracking-wider mb-4 text-white">Company</h4>
-            <ul className="space-y-3 text-xs font-light text-slate-400">
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Careers</Link></li>
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-white hover:translate-x-1.5 transition-all duration-300 inline-block">Terms of Service</Link></li>
-            </ul>
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <h4 className="font-semibold text-xs uppercase tracking-wider mb-4 text-white">Contact Us</h4>
-            <ul className="space-y-3 text-xs font-light text-slate-400">
-              <li className="hover:text-white transition-colors duration-300">(800) 555-1234</li>
-              <li className="hover:text-white transition-colors duration-300">info@aboderental.com</li>
-              <li className="hover:text-white transition-colors duration-300">1234 Park Rd, Suite 101</li>
-              <li className="hover:text-white transition-colors duration-300">Charlotte, NC 28209</li>
-            </ul>
-          </motion.div>
-        </div>
+        {/* Middle Column - Quick Links */}
+        <motion.div variants={itemVariants} className="flex flex-col md:w-3/12 md:pl-10">
+          <h3 className="text-xl font-bold text-white mb-6 tracking-wide">Quick Links</h3>
+          <div className="flex flex-col gap-4 text-[15px] text-[#9ca3af] font-light">
+            <Link href="/" className="hover:text-white transition-colors w-fit">Home</Link>
+            <Link href="/#services" className="hover:text-white transition-colors w-fit">Services</Link>
+            <Link href="/#markets" className="hover:text-white transition-colors w-fit">Markets</Link>
+            <Link href="/about" className="hover:text-white transition-colors w-fit">About Us</Link>
+          </div>
+        </motion.div>
+
+        {/* Right Column - Contact Info */}
+        <motion.div variants={itemVariants} className="flex flex-col md:w-4/12 md:items-end">
+          
+          <div className="flex flex-col w-fit">
+            <h3 className="text-xl font-bold text-white mb-6 tracking-wide">Contact Us</h3>
+            <div className="flex flex-col gap-8">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-full bg-[#323842] flex flex-shrink-0 items-center justify-center shadow-inner">
+                  <Phone className="w-5 h-5 text-white" />
+                </div>
+                <a href="tel:7043259240" className="text-[18px] font-bold text-white hover:text-secondary transition-colors">
+                  +1 704 325 9240
+                </a>
+              </div>
+
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-full bg-[#323842] flex flex-shrink-0 items-center justify-center shadow-inner">
+                  <Mail className="w-5 h-5 text-white" />
+                </div>
+                <a href="mailto:info@aboderental.com" className="text-[16px] font-bold text-[#5c9dff] hover:text-[#4279cf] transition-colors tracking-wide">
+                  info@aboderental.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
-      <div className="border-t border-white/5 py-6 text-center text-[10px] text-slate-500 font-light tracking-widest uppercase">
-        &copy; 2026 Abode Rental LLC. All rights reserved.
+
+      <div className="bg-[#1C2128] py-5 px-6 border-t border-[#30363d]">
+        <div className="max-w-6xl mx-auto flex justify-center items-center">
+          <div className="text-[12px] text-[#8b949e] font-light">
+            &copy; 2026 Abode Rental LLC. All rights reserved.
+          </div>
+        </div>
       </div>
     </motion.footer>
   );

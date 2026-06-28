@@ -19,26 +19,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const testimonials = [
-  {
-    quote: "Abode Rental helped us increase occupancy from 78% to 98% in just four months. Communication is excellent and stress is gone.",
-    author: "Mark T.",
-    role: "Real Estate Investor",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop"
-  },
-  {
-    quote: "Their team is responsive, professional, and truly cares about our properties. Highly recommend Abode Rental!",
-    author: "Sarah L.",
-    role: "Property Owner",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop"
-  },
-  {
-    quote: "Since switching to Abode Rental, our rental income has increased and maintenance issues are handled quickly.",
-    author: "James R.",
-    role: "Portfolio Owner",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop"
-  }
-];
 
 // High-Performance Animated Counter updating DOM directly to avoid re-renders
 function AnimatedCounter({ value, duration = 2 }: { value: string; duration?: number }) {
@@ -143,17 +123,6 @@ function GlowGlassCard({ children, className }: { children: React.ReactNode; cla
     <motion.div
       onMouseMove={handleMouseMove}
       className={`relative overflow-hidden group ${className}`}
-      style={{
-        background: "linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%)",
-        backdropFilter: "blur(40px)",
-        WebkitBackdropFilter: "blur(40px)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
-        borderTop: "1px solid rgba(255, 255, 255, 0.3)",
-        borderLeft: "1px solid rgba(255, 255, 255, 0.2)",
-        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 32px rgba(255, 255, 255, 0.05)",
-      }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Liquid glass light sweep animation */}
       <motion.div
@@ -293,7 +262,7 @@ export default function Home() {
   const marketsImgY = useTransform(marketsScroll, [0, 1], ["-10%", "10%"]);
 
   return (
-    <div className="flex flex-col gap-16 pb-24 font-sans bg-white overflow-hidden -mt-32">
+    <div className="flex flex-col gap-0 pb-8 font-sans bg-white overflow-hidden -mt-32">
       {/* Hero Section */}
       <section 
         ref={heroRef}
@@ -306,7 +275,7 @@ export default function Home() {
               alt="Luxury Architecture"
               fill
               unoptimized
-              className="object-cover opacity-95 select-none pointer-events-none"
+              className="object-cover object-top opacity-95 select-none pointer-events-none"
               priority
             />
           </motion.div>
@@ -390,46 +359,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Glass Statistics Cards */}
-        <div className="w-full max-w-7xl mx-auto mt-auto mb-6 relative z-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { metric: "500+", label: "Properties Managed", desc: "Across the Carolinas", icon: HomeIcon },
-              { metric: "$25M+", label: "Assets Under Management", desc: "Growing investor wealth", icon: BarChart2 },
-              { metric: "98%", label: "Client Retention", desc: "Year after year", icon: User },
-              { metric: "4.9/5", label: "Average Client Rating", desc: "Based on 200+ reviews", icon: Star }
-            ].map((item, idx) => (
-              <motion.div 
-                key={idx} 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.75 + idx * 0.1 }}
-                whileHover={{
-                  y: -4,
-                  scale: 1.02,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
-                  backgroundColor: "rgba(17, 17, 17, 0.9)"
-                }}
-                className="flex items-center gap-5 p-6 md:p-7 rounded-[20px] bg-[#0A0A0A]/75 backdrop-blur-xl border border-white/5 shadow-2xl transition-all duration-500 w-full group cursor-pointer"
-              >
-                <div className="w-14 h-14 rounded-full border border-[#D97745]/60 flex items-center justify-center text-[#D97745] shrink-0 group-hover:shadow-[0_0_15px_rgba(217,119,69,0.3)] transition-all duration-300">
-                  <item.icon className="w-[22px] h-[22px] text-[#D97745] stroke-[1.5]" />
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-2xl md:text-[28px] font-medium font-sans text-white leading-none">
-                    <AnimatedCounter value={item.metric} />
-                  </span>
-                  <span className="text-[14px] text-white/90 font-sans mt-2.5 leading-tight">
-                    {item.label}
-                  </span>
-                  <span className="text-[12px] text-white/50 font-sans mt-1 leading-tight">
-                    {item.desc}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
         {/* Scroll to Discover */}
         <div className="flex flex-col items-center gap-3 text-center w-full z-20 mt-6 mb-2">
@@ -515,9 +444,9 @@ export default function Home() {
       </section>
 
       {/* Our Services Section */}
-      <section className="relative overflow-hidden bg-[#0A0F1A] text-white py-24 px-6" id="services">
+      <section className="relative overflow-hidden bg-slate-50 text-primary py-16 px-6" id="services">
         {/* Decorative Background Elements */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto w-full relative z-10">
@@ -526,15 +455,15 @@ export default function Home() {
               <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-4 block">
                 Our Services
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white max-w-2xl leading-tight">
-                Full-service property management, <span className="text-slate-400 font-light italic">simplified.</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary max-w-2xl leading-tight">
+                Full-service property management, <span className="text-secondary font-light italic">simplified.</span>
               </h2>
             </div>
             <div className="flex items-center gap-4 shrink-0">
             </div>
           </div>
 
-          <InteractiveCarousel className="pb-8">
+          <InteractiveCarousel className="py-12 px-4 -mx-4">
             {[
               {
                 title: "Tenant Placement",
@@ -564,18 +493,13 @@ export default function Home() {
             ].map((service, idx) => (
               <GlowGlassCard
                 key={idx}
-                className="snap-start min-w-[280px] md:min-w-[320px] flex-1 rounded-3xl p-7 md:p-8 flex flex-col justify-between min-h-[300px] border border-white/5 bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-colors duration-500"
+                className="snap-start min-w-[280px] md:min-w-[320px] flex-1 bg-white rounded-3xl p-8 border border-slate-100 shadow-lg hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
               >
-                <div>
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-secondary mb-6 group-hover:bg-secondary/20 group-hover:border-secondary/30 transition-all duration-500">
-                    <service.icon className="w-5 h-5 text-secondary group-hover:scale-110 transition-transform duration-500" />
-                  </div>
-                  <h3 className="text-xl font-heading font-bold text-white mb-3 text-left">{service.title}</h3>
-                  <p className="text-slate-400 font-light text-xs md:text-sm text-left leading-relaxed">{service.desc}</p>
+                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6 text-secondary group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
+                  <service.icon className="w-6 h-6" />
                 </div>
-                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white bg-white/5 group-hover:bg-secondary group-hover:border-secondary transition-all duration-500 mt-6 self-start cursor-pointer group-hover:translate-x-2">
-                  <ArrowRight className="w-4 h-4" />
-                </div>
+                <h3 className="text-lg font-bold font-heading text-primary mb-3 text-left">{service.title}</h3>
+                <p className="text-slate-500 text-sm font-light leading-relaxed text-left">{service.desc}</p>
               </GlowGlassCard>
             ))}
           </InteractiveCarousel>
@@ -583,7 +507,7 @@ export default function Home() {
       </section>
 
       {/* Our Process Section */}
-      <section ref={processRef} className="px-6 max-w-7xl mx-auto w-full py-16 text-center">
+      <section ref={processRef} className="px-6 max-w-7xl mx-auto w-full pt-8 pb-12 text-center">
         <div className="mb-16">
           <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
             Our Process
@@ -733,88 +657,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Client Success Stories Section */}
-      <section className="bg-[#FAFAFA] py-24 px-6 overflow-hidden">
-        <div className="max-w-[1400px] mx-auto w-full flex flex-col xl:flex-row items-center xl:items-stretch gap-12">
-          
-          {/* Left: Titles */}
-          <div className="flex-shrink-0 w-full xl:w-[320px] flex flex-col justify-center">
-            <span className="text-slate-400 font-bold tracking-[0.2em] text-[10px] uppercase mb-4 block">
-              Client Success Stories
-            </span>
-            <h2 className="text-4xl md:text-5xl font-heading font-medium text-slate-900 font-serif leading-tight">
-              Results that<br/>speak for themselves.
-            </h2>
-          </div>
-
-          {/* Right: Cards + Nav */}
-          <div className="flex-1 flex items-center gap-6 overflow-hidden relative">
-            <div 
-              id="test-scroll-container"
-              className="flex gap-6 overflow-x-auto pb-6 pt-4 px-4 -mx-4 hide-scrollbar w-full snap-x snap-mandatory"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {testimonials.map((testimonial, idx) => (
-                <div 
-                  key={idx}
-                  className="w-[340px] shrink-0 bg-white rounded-3xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] flex flex-col justify-between snap-start border border-slate-100"
-                >
-                  <div>
-                    <span className="text-[#C65D29] font-serif text-6xl leading-none font-bold block mb-4 select-none h-8 overflow-hidden pt-2">
-                      “
-                    </span>
-                    <p className="text-slate-600 text-[14px] leading-relaxed font-normal mb-8 min-h-[100px]">
-                      {testimonial.quote}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center gap-4">
-                    <div className="relative w-11 h-11 rounded-full overflow-hidden shrink-0">
-                      <Image
-                        src={testimonial.avatar}
-                        alt={testimonial.author}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <h4 className="font-sans font-bold text-[14px] text-slate-900 leading-tight">{testimonial.author}</h4>
-                      <p className="text-[12px] text-slate-500 font-normal mt-0.5">{testimonial.role}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Navigation Arrows */}
-            <div className="hidden xl:flex items-center gap-3 shrink-0 ml-4">
-              <button 
-                onClick={() => {
-                  const el = document.getElementById('test-scroll-container');
-                  if (el) el.scrollBy({ left: -364, behavior: 'smooth' });
-                }}
-                className="w-12 h-12 rounded-full bg-[#1A1A24] text-white flex items-center justify-center hover:bg-black transition-colors cursor-pointer shadow-lg"
-              >
-                <span className="text-sm">❮</span>
-              </button>
-              <button 
-                onClick={() => {
-                  const el = document.getElementById('test-scroll-container');
-                  if (el) el.scrollBy({ left: 364, behavior: 'smooth' });
-                }}
-                className="w-12 h-12 rounded-full bg-[#1A1A24] text-white flex items-center justify-center hover:bg-black transition-colors cursor-pointer shadow-lg"
-              >
-                <span className="text-sm">❯</span>
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       {/* CTA Section */}
-      <section className="px-6 max-w-[1400px] mx-auto w-full py-16">
-        <div className="relative bg-[#C65D29] text-white rounded-2xl px-12 md:px-16 py-12 overflow-hidden flex flex-col xl:flex-row items-center justify-between gap-8">
+      <section className="px-6 max-w-[1400px] mx-auto w-full pt-12 pb-8">
+        <div className="relative bg-[#C65D29] text-white rounded-2xl px-12 md:px-16 py-12 overflow-hidden flex flex-col xl:flex-row items-center justify-between gap-8 shadow-2xl shadow-[#C65D29]/40">
           
           {/* Subtle background gradient/pattern overlay for the right side */}
           <div className="absolute inset-y-0 right-0 w-[40%] bg-gradient-to-l from-black/10 to-transparent pointer-events-none" />

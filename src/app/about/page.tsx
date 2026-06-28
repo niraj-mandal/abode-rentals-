@@ -1,17 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Shield, Award, CheckCircle2, ChevronRight, Clock, HeartHandshake, TrendingUp, ShieldCheck } from "lucide-react";
+import { Star, Shield, Award, CheckCircle2, ChevronRight, Clock, HeartHandshake, TrendingUp, ShieldCheck, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 
-const stats = [
-  { label: "Assets Under Management", value: "$25M+" },
-  { label: "Properties Managed", value: "500+" },
-  { label: "Client Retention", value: "98%" },
-  { label: "Average Rating", value: "4.9/5" },
-];
 
 const values = [
   {
@@ -54,29 +48,12 @@ const whyChooseUs = [
   }
 ];
 
-const team = [
-  {
-    name: "Alexander Vance",
-    role: "Founder & CEO",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop",
-  },
-  {
-    name: "Helena Rostova",
-    role: "Director of Asset Management",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
-  },
-  {
-    name: "Marcus Thorne",
-    role: "Head of Resident Relations",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600&auto=format&fit=crop",
-  }
-];
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col gap-32 pb-24 font-sans bg-white">
+    <div className="flex flex-col gap-0 pb-8 font-sans bg-white -mt-32">
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center px-6 overflow-hidden -mt-32 pt-32 bg-[#0F172A] text-white">
+      <section className="relative min-h-[70vh] flex flex-col items-center justify-center px-6 overflow-hidden pt-40 pb-20 bg-[#0F172A] text-white">
         <div className="absolute inset-0 w-full h-full -z-10">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/40 via-[#0F172A]/85 to-[#0F172A] z-10" />
           <Image
@@ -114,27 +91,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="px-6 max-w-7xl mx-auto w-full -mt-20 z-30 relative">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, idx) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="glass-card rounded-3xl p-8 text-center border border-slate-200/50 shadow-xl bg-white/90 backdrop-blur-xl hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="text-4xl md:text-5xl font-bold font-heading text-primary mb-3">{stat.value}</div>
-              <div className="text-[10px] md:text-xs text-slate-400 font-bold tracking-widest uppercase">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       {/* Core Values */}
-      <section className="px-6 max-w-7xl mx-auto w-full">
+      <section className="px-6 max-w-7xl mx-auto w-full pt-12">
         <div className="text-center mb-20 max-w-2xl mx-auto">
           <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
             Our Commitments
@@ -171,7 +130,7 @@ export default function AboutPage() {
       </section>
 
       {/* Inspection Details Section */}
-      <section className="px-6 max-w-7xl mx-auto w-full">
+      <section className="px-6 max-w-7xl mx-auto w-full py-12">
         <div className="glass-card rounded-[2.5rem] p-8 md:p-16 overflow-hidden border border-slate-100 shadow-xl relative bg-slate-50/50">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             <div>
@@ -212,7 +171,7 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="px-6 max-w-7xl mx-auto w-full">
+      <section className="px-6 max-w-7xl mx-auto w-full py-12">
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
             The Abode Advantage
@@ -246,48 +205,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Leadership / Team */}
-      <section className="px-6 max-w-7xl mx-auto w-full">
-        <div className="text-center mb-20 max-w-2xl mx-auto">
-          <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
-            Experienced Specialists
-          </span>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-6">Our Leadership</h2>
-          <p className="text-slate-500 font-light leading-relaxed">
-            Meet the professionals committed to delivering worry-free wealth management for real estate investors.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {team.map((t, idx) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.15 }}
-              className="group"
-            >
-              <div className="relative aspect-[3/4] w-full rounded-3xl overflow-hidden mb-6 border border-slate-200 shadow-xl">
-                <Image
-                  src={t.image}
-                  alt={t.name}
-                  fill
-                  className="object-cover transition-transform duration-750 group-hover:scale-105 filter grayscale group-hover:grayscale-0"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/10 to-transparent opacity-80" />
-                <div className="absolute bottom-8 left-8 right-8">
-                  <h3 className="text-2xl font-heading font-bold text-white mb-1">{t.name}</h3>
-                  <p className="text-secondary text-sm font-semibold tracking-wider uppercase">{t.role}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       {/* CTA Section */}
-      <section className="px-6 max-w-5xl mx-auto w-full text-center">
+      <section className="px-6 max-w-5xl mx-auto w-full text-center pt-12 pb-8">
         <div className="rounded-[3rem] p-10 md:p-16 bg-primary text-white border border-primary/20 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 flex flex-col items-center">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight">Ready to Protect Your Investment?</h2>
@@ -298,13 +218,6 @@ export default function AboutPage() {
               <Link href="/list-property">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto font-bold rounded-full">
                   Get Free Analysis
-                </Button>
-              </Link>
-              <Link href="/properties">
-                <Button size="lg" className="w-full sm:w-auto font-bold rounded-full bg-white/5 backdrop-blur-md border border-white/20 text-white hover:bg-white/10 hover:border-white/30 transition-all duration-300 shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] group">
-                  <span className="flex items-center">
-                    Browse Properties <ChevronRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </span>
                 </Button>
               </Link>
             </div>

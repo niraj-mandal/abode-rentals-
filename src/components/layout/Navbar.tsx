@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../ui/Button";
 import { Menu, X, Home as HomeIcon, ChevronDown, ArrowRight } from "lucide-react";
@@ -16,7 +17,6 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/#services" },
-  { name: "PROPERTIES", href: "/properties" },
   { name: "About Us", href: "/about" },
   { name: "Contact", href: "/#contact" },
 ];
@@ -54,8 +54,16 @@ export function Navbar() {
             : "bg-transparent border-b border-transparent shadow-none"
         }`}
       >
-        <Link href="/" className="flex items-center gap-2">
-          <HomeIcon className="w-7 h-7 text-secondary stroke-[2] shrink-0" />
+        <Link href="/" className="flex items-center gap-3">
+          <div className="relative w-10 h-10 shrink-0">
+            <Image 
+              src="/logo-mark.png" 
+              alt="AR Logo" 
+              fill 
+              className="object-contain" 
+              priority 
+            />
+          </div>
           <div className="flex flex-col">
             <span className={`text-sm font-bold font-sans tracking-wide leading-none transition-colors duration-300 ${useDarkText ? "text-slate-800" : "text-white"}`}>
               Abode Rental

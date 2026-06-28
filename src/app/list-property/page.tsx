@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { 
   Building2, MapPin, ListPlus, ShieldCheck, 
   ChevronLeft, Check, CheckCircle2,
-  Mail, Calendar
+  Mail, Calendar, Phone
 } from "lucide-react";
 import Link from "next/link";
 
@@ -34,6 +34,7 @@ export default function ListPropertyPage() {
   const [price, setPrice] = useState(4500);
   const [ownerName, setOwnerName] = useState("");
   const [ownerEmail, setOwnerEmail] = useState("");
+  const [ownerPhone, setOwnerPhone] = useState("");
   const [inspectionDate, setInspectionDate] = useState("");
 
   const toggleAmenity = (amenity: string) => {
@@ -49,7 +50,7 @@ export default function ListPropertyPage() {
       alert("Please fill in all details for Step 1.");
       return;
     }
-    if (step === 3 && (!ownerName || !ownerEmail || !inspectionDate)) {
+    if (step === 3 && (!ownerName || !ownerEmail || !ownerPhone || !inspectionDate)) {
       alert("Please fill in your contact information and select an inspection date.");
       return;
     }
@@ -268,19 +269,28 @@ export default function ListPropertyPage() {
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between items-baseline">
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Target Monthly Rent (USD)</label>
-                  <span className="text-2xl font-heading font-extrabold text-primary">${price.toLocaleString()}</span>
+                  <div className="relative flex items-center">
+                    <span className="text-2xl font-heading font-extrabold text-primary absolute left-0">$</span>
+                    <input 
+                      type="number"
+                      min="500"
+                      value={price || ""}
+                      onChange={(e) => setPrice(Number(e.target.value))}
+                      className="text-2xl font-heading font-extrabold text-primary bg-transparent w-32 pl-5 text-right focus:outline-none"
+                    />
+                  </div>
                 </div>
                 <input
                   type="range"
-                  min="2000"
+                  min="500"
                   max="30000"
-                  step="500"
+                  step="50"
                   value={price}
                   onChange={(e) => setPrice(Number(e.target.value))}
                   className="w-full accent-secondary bg-slate-200 h-1.5 rounded-full cursor-pointer"
                 />
                 <div className="flex justify-between text-[10px] text-slate-400 font-bold tracking-wider">
-                  <span>$2,000</span>
+                  <span>$500</span>
                   <span>$15,000</span>
                   <span>$30,000+</span>
                 </div>
@@ -311,24 +321,38 @@ export default function ListPropertyPage() {
                     />
                   </div>
                 </div>
-              </div>
-
-              {/* Inspection Date picker */}
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Preferred On-Site Audit Date</label>
-                <div className="relative">
-                  <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                  <input
-                    type="date"
-                    value={inspectionDate}
-                    onChange={(e) => setInspectionDate(e.target.value)}
-                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none transition-colors"
-                  />
+                {/* Contact Phone */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Contact Phone</label>
+                  <div className="relative">
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="tel"
+                      placeholder="e.g. +1 704 555 0101"
+                      value={ownerPhone}
+                      onChange={(e) => setOwnerPhone(e.target.value)}
+                      className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none placeholder:text-slate-400 transition-colors"
+                    />
+                  </div>
                 </div>
-                <p className="text-[10px] text-slate-400 leading-relaxed font-light mt-2">
-                  * A physical walk-through is scheduled prior to finalize our portfolio onboarding and property safety verification.
-                </p>
+
+                {/* Inspection Date picker */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Preferred On-Site Audit Date</label>
+                  <div className="relative">
+                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                    <input
+                      type="date"
+                      value={inspectionDate}
+                      onChange={(e) => setInspectionDate(e.target.value)}
+                      className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
               </div>
+              <p className="text-[10px] text-slate-400 leading-relaxed font-light mt-1">
+                * A physical walk-through is scheduled prior to finalize our portfolio onboarding and property safety verification.
+              </p>
             </motion.div>
           )}
 
@@ -366,9 +390,6 @@ export default function ListPropertyPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mt-6">
-                <Link href="/properties" className="flex-1">
-                  <Button variant="glass" className="w-full">Browse Portfolio</Button>
-                </Link>
                 <Link href="/" className="flex-1">
                   <Button className="w-full">Return Home</Button>
                 </Link>
