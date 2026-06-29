@@ -54,7 +54,7 @@ export function Navbar() {
             : "bg-transparent border-b border-transparent shadow-none"
         }`}
       >
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-1.5">
           <div className="relative w-14 h-14 shrink-0">
             <Image 
               src="/logo-mark.png" 
