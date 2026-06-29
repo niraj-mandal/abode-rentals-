@@ -19,6 +19,6 @@ def remove_white_bg(input_path, output_path):
     img.save(output_path, "PNG")
 
 remove_white_bg(
-    r"C:\Users\niraj\.gemini\antigravity-ide\brain\f636304d-aa3f-4fcd-b0b7-1163380fac56\media__1782681571476.jpg",
+    r"C:\Users\niraj\.gemini\antigravity-ide\brain\d54ee29e-e2b0-49b6-a70f-a866b70f88ad\media__1782716530918.png",
     r"c:\Users\niraj\abode rentals final version layout\public\logo-mark.png"
 )
