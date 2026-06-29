@@ -55,7 +55,7 @@ export function Navbar() {
         }`}
       >
         <Link href="/" className="flex items-center gap-3">
-          <div className="relative w-10 h-10 shrink-0">
+          <div className="relative w-14 h-14 shrink-0">
             <Image 
               src="/logo-mark.png" 
               alt="AR Logo" 
