@@ -98,7 +98,9 @@ export default function ListPropertyPage() {
       )}
 
       {/* Form Steps */}
-      <div className="glass-card rounded-[2.5rem] p-8 md:p-12 border border-slate-100 shadow-2xl relative overflow-hidden bg-white max-w-3xl mx-auto">
+      <form onSubmit={(e) => { e.preventDefault(); handleNext(); }} className="glass-card rounded-[2.5rem] p-8 md:p-12 border border-slate-100 shadow-2xl relative overflow-hidden bg-white max-w-3xl mx-auto">
+        <input type="hidden" name="property_type" value={category} />
+        <input type="hidden" name="amenities" value={selectedAmenities.join(", ")} />
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div
@@ -117,6 +119,7 @@ export default function ListPropertyPage() {
                 <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Property Nickname / Title</label>
                 <input
                   type="text"
+                  name="property_title"
                   placeholder="e.g., The Myers Park Manor"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -131,6 +134,7 @@ export default function ListPropertyPage() {
                   <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     type="text"
+                    name="property_address"
                     placeholder="e.g., 2200 Queens Rd W, Charlotte, NC 28207"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
@@ -164,6 +168,7 @@ export default function ListPropertyPage() {
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Brief Property Description</label>
                 <textarea
+                  name="property_description"
                   rows={4}
                   placeholder="Outline key architectural highlights, target rent goals, current tenancy status, and any upgrades..."
                   value={description}
@@ -192,6 +197,7 @@ export default function ListPropertyPage() {
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Bedrooms</label>
                   <input
                     type="number"
+                    name="bedrooms"
                     min="1"
                     value={beds}
                     onChange={(e) => setBeds(Number(e.target.value))}
@@ -202,6 +208,7 @@ export default function ListPropertyPage() {
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Bathrooms</label>
                   <input
                     type="number"
+                    name="bathrooms"
                     min="1"
                     step="0.5"
                     value={baths}
@@ -213,6 +220,7 @@ export default function ListPropertyPage() {
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Size (Sq Ft)</label>
                   <input
                     type="number"
+                    name="square_footage"
                     min="500"
                     step="100"
                     value={size}
@@ -273,6 +281,7 @@ export default function ListPropertyPage() {
                     <span className="text-2xl font-heading font-extrabold text-primary absolute left-0">$</span>
                     <input 
                       type="number"
+                      name="target_rent"
                       min="500"
                       value={price || ""}
                       onChange={(e) => setPrice(Number(e.target.value))}
@@ -302,6 +311,7 @@ export default function ListPropertyPage() {
                   <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Investor Full Name</label>
                   <input
                     type="text"
+                    name="full_name"
                     placeholder="e.g. Richard Branson"
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
@@ -314,6 +324,7 @@ export default function ListPropertyPage() {
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input
                       type="email"
+                      name="email"
                       placeholder="e.g. owner@portfolio.com"
                       value={ownerEmail}
                       onChange={(e) => setOwnerEmail(e.target.value)}
@@ -328,6 +339,7 @@ export default function ListPropertyPage() {
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input
                       type="tel"
+                      name="phone"
                       placeholder="e.g. +1 704 555 0101"
                       value={ownerPhone}
                       onChange={(e) => setOwnerPhone(e.target.value)}
@@ -343,6 +355,7 @@ export default function ListPropertyPage() {
                     <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                     <input
                       type="date"
+                      name="inspection_date"
                       value={inspectionDate}
                       onChange={(e) => setInspectionDate(e.target.value)}
                       className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none transition-colors"
@@ -412,15 +425,15 @@ export default function ListPropertyPage() {
             </Button>
             
             <Button
-              type="button"
-              onClick={handleNext}
+              type={step === 3 ? "submit" : "button"}
+              onClick={step === 3 ? undefined : handleNext}
               className="flex items-center gap-2 cursor-pointer"
             >
               {step === 3 ? "Submit Onboarding Dossier" : "Continue"}
             </Button>
           </div>
         )}
-      </div>
+      </form>
     </div>
   );
 }
