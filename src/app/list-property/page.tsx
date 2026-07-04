@@ -36,6 +36,7 @@ export default function ListPropertyPage() {
   const [ownerEmail, setOwnerEmail] = useState("");
   const [ownerPhone, setOwnerPhone] = useState("");
   const [inspectionDate, setInspectionDate] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleAmenity = (amenity: string) => {
     setSelectedAmenities(prev => 
@@ -45,7 +46,7 @@ export default function ListPropertyPage() {
     );
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 1 && (!title || !location || !description)) {
       alert("Please fill in all details for Step 1.");
       return;
@@ -54,10 +55,48 @@ export default function ListPropertyPage() {
       alert("Please fill in your contact information and select an inspection date.");
       return;
     }
+    
     if (step === 3) {
-      setRegistrationCode(`ABD-${Math.floor(10000 + Math.random() * 90000)}`);
+      setIsSubmitting(true);
+      try {
+        const payload = {
+          name: ownerName,
+          email: ownerEmail,
+          phone: ownerPhone,
+          propertyAddress: location,
+          propertyType: category,
+          expectedRent: price,
+          bedrooms: beds,
+          bathrooms: baths,
+          squareFeet: size,
+          source: "Website Rental Analysis Form",
+          notes: `Title: ${title}\nDescription: ${description}\nAmenities: ${selectedAmenities.join(", ")}\nRequested Audit Date: ${inspectionDate}`
+        };
+
+        const res = await fetch("https://abode-crm-lime.vercel.app/api/webhooks/leads", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer default_dev_secret_12345"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to submit to CRM");
+        }
+        
+        setRegistrationCode(`ABD-${Math.floor(10000 + Math.random() * 90000)}`);
+        setStep(prev => prev + 1);
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert("There was an error submitting your request. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      setStep(prev => prev + 1);
     }
-    setStep(prev => prev + 1);
   };
 
   const handleBack = () => {
@@ -427,9 +466,10 @@ export default function ListPropertyPage() {
             <Button
               type={step === 3 ? "submit" : "button"}
               onClick={step === 3 ? undefined : handleNext}
+              disabled={isSubmitting}
               className="flex items-center gap-2 cursor-pointer"
             >
-              {step === 3 ? "Submit Onboarding Dossier" : "Continue"}
+              {step === 3 ? (isSubmitting ? "Submitting..." : "Submit Onboarding Dossier") : "Continue"}
             </Button>
           </div>
         )}
