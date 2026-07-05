@@ -73,11 +73,14 @@ export default function ListPropertyPage() {
           notes: `Title: ${title}\nDescription: ${description}\nAmenities: ${selectedAmenities.join(", ")}\nRequested Audit Date: ${inspectionDate}`
         };
 
-        const res = await fetch("https://abode-crm-lime.vercel.app/api/webhooks/leads", {
+        const WEBHOOK_URL = process.env.NEXT_PUBLIC_CRM_WEBHOOK_URL || "https://abode-crm-lime.vercel.app/api/webhooks/leads";
+        const WEBHOOK_SECRET = process.env.NEXT_PUBLIC_CRM_WEBHOOK_SECRET || "default_dev_secret_12345";
+
+        const res = await fetch(WEBHOOK_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer default_dev_secret_12345"
+            "Authorization": `Bearer ${WEBHOOK_SECRET}`
           },
           body: JSON.stringify(payload)
         });
