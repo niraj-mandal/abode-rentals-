@@ -347,15 +347,6 @@ export default function Home() {
                 Get Free Rental Analysis <ArrowRight className="w-[18px] h-[18px] text-white stroke-[2]" />
               </motion.button>
             </Link>
-            <Link href="/about" className="w-full sm:w-auto">
-              <motion.button 
-                whileHover={{ scale: 1.02 }} 
-                whileTap={{ scale: 0.98 }} 
-                className="w-full sm:w-auto rounded-lg font-sans font-medium text-[15px] px-8 h-[54px] flex items-center justify-center gap-3 bg-[#0a0a0a]/40 border border-white/20 text-white hover:bg-white/10 transition-all cursor-pointer backdrop-blur-md"
-              >
-                Talk to an Expert <Play className="w-[12px] h-[12px] text-white fill-white" />
-              </motion.button>
-            </Link>
           </motion.div>
         </div>
 
