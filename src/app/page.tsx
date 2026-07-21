@@ -351,7 +351,7 @@ export default function Home() {
                 </motion.button>
               </Link>
               
-              <Link href="/services" className="w-full sm:w-auto block">
+              <Link href="/#services" className="w-full sm:w-auto block">
                 <motion.button 
                   whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.1)" }} 
                   whileTap={{ scale: 0.98 }} 
