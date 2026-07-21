@@ -99,7 +99,7 @@ export default function AboutPage() {
             Our Commitments
           </span>
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-6">The Abode Standard</h2>
-          <p className="text-slate-500 font-light leading-relaxed">
+          <p className="text-slate-600 font-normal leading-relaxed">
             We combine high-end customer service that attracts the market&apos;s most qualified tenants with institution-grade financial tracking.
           </p>
         </div>
@@ -121,7 +121,7 @@ export default function AboutPage() {
                     <Icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-4 text-primary">{val.title}</h3>
-                  <p className="text-slate-500 leading-relaxed font-light text-sm">{val.description}</p>
+                  <p className="text-slate-600 leading-relaxed font-normal text-sm">{val.description}</p>
                 </div>
               </motion.div>
             );
@@ -138,7 +138,7 @@ export default function AboutPage() {
                 Rigorous Audits
               </span>
               <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-6">Our 100-Point Inspection</h2>
-              <p className="text-slate-500 leading-relaxed font-light mb-8 text-sm md:text-base">
+              <p className="text-slate-600 leading-relaxed font-normal mb-8 text-sm md:text-base">
                 Before a property is permitted to join the Abode registry, our team performs a thorough physical evaluation. We review everything from structural integrity, utility status, water pressure, to safety compliance and noise levels.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -152,7 +152,7 @@ export default function AboutPage() {
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-secondary shrink-0" />
-                    <span className="text-sm text-slate-600 font-light">{item}</span>
+                    <span className="text-sm text-slate-700 font-medium">{item}</span>
                   </div>
                 ))}
               </div>
@@ -177,7 +177,7 @@ export default function AboutPage() {
             The Abode Advantage
           </span>
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-6">Why Choose Us</h2>
-          <p className="text-slate-500 font-light leading-relaxed">
+          <p className="text-slate-600 font-normal leading-relaxed">
             We deliver peace of mind and profitability through our comprehensive property management services.
           </p>
         </div>
@@ -198,7 +198,7 @@ export default function AboutPage() {
                   <Icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-bold font-heading text-primary mb-3">{feature.title}</h3>
-                <p className="text-slate-500 text-sm font-light leading-relaxed">{feature.description}</p>
+                <p className="text-slate-600 text-sm font-normal leading-relaxed">{feature.description}</p>
               </motion.div>
             );
           })}

@@ -116,7 +116,7 @@ export default function ListPropertyPage() {
         <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
           Request Your Free Rental Analysis
         </h1>
-        <p className="text-slate-500 font-light text-sm leading-relaxed">
+        <p className="text-slate-600 font-normal text-sm leading-relaxed">
           Submit your property profile below to begin our detailed market audit and receive a customized management assessment.
         </p>
       </div>
@@ -124,7 +124,7 @@ export default function ListPropertyPage() {
       {/* Progress Bar */}
       {step <= 3 && (
         <div className="mb-12 max-w-3xl mx-auto">
-          <div className="flex justify-between items-center text-[10px] font-bold tracking-widest text-slate-400 mb-4">
+          <div className="flex justify-between items-center text-[10px] font-bold tracking-widest text-slate-500 mb-4">
             <span className={step >= 1 ? "text-primary" : ""}>01. PROPERTY DETAILS</span>
             <span className={step >= 2 ? "text-primary" : ""}>02. SPECIFICATIONS</span>
             <span className={step >= 3 ? "text-primary" : ""}>03. PORTFOLIO & AUDIT</span>
@@ -158,36 +158,36 @@ export default function ListPropertyPage() {
               
               {/* Title */}
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Property Nickname / Title</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Property Nickname / Title</label>
                 <input
                   type="text"
                   name="property_title"
                   placeholder="e.g., The Myers Park Manor"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl px-5 py-4 text-sm text-primary focus:outline-none placeholder:text-slate-400 transition-colors"
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
                 />
               </div>
 
               {/* Location */}
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Property Address</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Property Address</label>
                 <div className="relative">
-                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <input
                     type="text"
                     name="property_address"
                     placeholder="e.g., 2200 Queens Rd W, Charlotte, NC 28207"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none placeholder:text-slate-400 transition-colors"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
                   />
                 </div>
               </div>
 
               {/* Category */}
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Property Type</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Property Type</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {CATEGORIES.map((cat) => (
                     <button
@@ -197,7 +197,7 @@ export default function ListPropertyPage() {
                       className={`py-3 px-4 rounded-xl border text-xs font-semibold tracking-wide transition-all cursor-pointer ${
                         category === cat
                           ? "bg-[#0F172A] border-[#0F172A] text-white shadow-md"
-                          : "bg-slate-50/50 border-slate-200 text-slate-600 hover:bg-slate-100/50"
+                          : "bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100"
                       }`}
                     >
                       {cat}
@@ -208,14 +208,14 @@ export default function ListPropertyPage() {
 
               {/* Description */}
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Brief Property Description</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Brief Property Description</label>
                 <textarea
                   name="property_description"
                   rows={4}
                   placeholder="Outline key architectural highlights, target rent goals, current tenancy status, and any upgrades..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl px-5 py-4 text-sm text-primary focus:outline-none placeholder:text-slate-400 resize-none transition-colors"
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 resize-none transition-colors"
                 />
               </div>
             </motion.div>
@@ -236,18 +236,18 @@ export default function ListPropertyPage() {
               {/* Grid of Beds, Baths, Sq ft */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Bedrooms</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Bedrooms</label>
                   <input
                     type="number"
                     name="bedrooms"
                     min="1"
                     value={beds}
                     onChange={(e) => setBeds(Number(e.target.value))}
-                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl px-5 py-4 text-sm text-primary focus:outline-none text-center transition-colors"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-semibold focus:outline-none text-center transition-colors"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Bathrooms</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Bathrooms</label>
                   <input
                     type="number"
                     name="bathrooms"
@@ -255,11 +255,11 @@ export default function ListPropertyPage() {
                     step="0.5"
                     value={baths}
                     onChange={(e) => setBaths(Number(e.target.value))}
-                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl px-5 py-4 text-sm text-primary focus:outline-none text-center transition-colors"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-semibold focus:outline-none text-center transition-colors"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Size (Sq Ft)</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Size (Sq Ft)</label>
                   <input
                     type="number"
                     name="square_footage"
@@ -267,7 +267,7 @@ export default function ListPropertyPage() {
                     step="100"
                     value={size}
                     onChange={(e) => setSize(Number(e.target.value))}
-                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl px-5 py-4 text-sm text-primary focus:outline-none text-center transition-colors"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-semibold focus:outline-none text-center transition-colors"
                   />
                 </div>
               </div>
@@ -350,62 +350,62 @@ export default function ListPropertyPage() {
               {/* Owner Info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Investor Full Name</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Investor Full Name</label>
                   <input
                     type="text"
                     name="full_name"
                     placeholder="e.g. Richard Branson"
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
-                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl px-5 py-4 text-sm text-primary focus:outline-none placeholder:text-slate-400 transition-colors"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Contact Email</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Contact Email</label>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <input
                       type="email"
                       name="email"
                       placeholder="e.g. owner@portfolio.com"
                       value={ownerEmail}
                       onChange={(e) => setOwnerEmail(e.target.value)}
-                      className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none placeholder:text-slate-400 transition-colors"
+                      className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
                     />
                   </div>
                 </div>
                 {/* Contact Phone */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Contact Phone</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Contact Phone</label>
                   <div className="relative">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <input
                       type="tel"
                       name="phone"
                       placeholder="e.g. +1 704 555 0101"
                       value={ownerPhone}
                       onChange={(e) => setOwnerPhone(e.target.value)}
-                      className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none placeholder:text-slate-400 transition-colors"
+                      className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Inspection Date picker */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Preferred On-Site Audit Date</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Preferred On-Site Audit Date</label>
                   <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                     <input
                       type="date"
                       name="inspection_date"
                       value={inspectionDate}
                       onChange={(e) => setInspectionDate(e.target.value)}
-                      className="w-full bg-slate-50/50 border border-slate-200 focus:border-secondary rounded-2xl pl-12 pr-5 py-4 text-sm text-primary focus:outline-none transition-colors"
+                      className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none transition-colors"
                     />
                   </div>
                 </div>
               </div>
-              <p className="text-[10px] text-slate-400 leading-relaxed font-light mt-1">
+              <p className="text-[11px] text-slate-600 leading-relaxed font-normal mt-1">
                 * A physical walk-through is scheduled prior to finalize our portfolio onboarding and property safety verification.
               </p>
             </motion.div>

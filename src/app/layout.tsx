@@ -50,9 +50,6 @@ export default function RootLayout({
         <Footer />
         <Analytics />
         <SpeedInsights />
-        {/* Start of HubSpot Embed Code */}
-        <script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/246641304.js"></script>
-        {/* End of HubSpot Embed Code */}
       </body>
     </html>
   );

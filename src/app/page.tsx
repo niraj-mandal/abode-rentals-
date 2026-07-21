@@ -417,7 +417,7 @@ export default function Home() {
               More than management.<br />It&apos;s peace of mind.
             </h2>
           </div>
-          <p className="text-slate-500 max-w-lg font-light leading-relaxed text-sm md:text-base lg:mt-8 text-left">
+          <p className="text-slate-600 max-w-lg font-normal leading-relaxed text-sm md:text-base lg:mt-8 text-left">
             We combine industry expertise, advanced technology, and exceptional service to protect your investment and maximize your returns.
           </p>
         </div>
@@ -470,7 +470,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col text-left">
                   <h3 className="text-lg font-bold text-[#0F172A] mb-2 leading-tight">{item.title}</h3>
-                  <p className="text-slate-500 text-xs font-light leading-relaxed">{item.desc}</p>
+                  <p className="text-slate-600 text-xs font-normal leading-relaxed">{item.desc}</p>
                 </div>
               </TiltCard>
             </motion.div>
@@ -534,7 +534,7 @@ export default function Home() {
                   <service.icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-bold font-heading text-primary mb-3 text-left">{service.title}</h3>
-                <p className="text-slate-500 text-sm font-light leading-relaxed text-left">{service.desc}</p>
+                <p className="text-slate-600 text-sm font-normal leading-relaxed text-left">{service.desc}</p>
               </GlowGlassCard>
             ))}
           </InteractiveCarousel>
@@ -614,7 +614,7 @@ export default function Home() {
                   <h4 className="text-lg font-bold text-[#0F172A] mb-3 leading-tight transition-colors duration-300 group-hover:text-secondary">
                     {step.title}
                   </h4>
-                  <p className="text-slate-500 text-xs font-light leading-relaxed max-w-[200px]">
+                  <p className="text-slate-600 text-xs font-normal leading-relaxed max-w-[200px]">
                     {step.desc}
                   </p>
                 </div>
@@ -718,9 +718,9 @@ export default function Home() {
           <div className="shrink-0 relative z-10 w-full md:w-auto flex justify-center md:justify-end mt-4 xl:mt-0">
             <Link href="/list-property">
               <motion.button 
-                whileHover={{ scale: 1.02 }} 
+                whileHover={{ scale: 1.04 }} 
                 whileTap={{ scale: 0.98 }} 
-                className="border border-white/50 text-white rounded-[6px] font-normal tracking-wide text-[14px] px-8 h-[44px] bg-transparent hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center whitespace-nowrap"
+                className="bg-white text-[#C65D29] hover:bg-slate-100 rounded-lg font-semibold tracking-wide text-sm px-8 py-3.5 shadow-xl transition-all cursor-pointer flex items-center justify-center whitespace-nowrap border border-white"
               >
                 Get Free Rental Analysis
               </motion.button>
