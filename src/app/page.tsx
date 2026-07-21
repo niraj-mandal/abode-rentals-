@@ -300,7 +300,7 @@ export default function Home() {
           </motion.div>
 
           {/* Headline line by line Reveal */}
-          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-heading font-normal tracking-tight leading-[1.05] text-white mb-8 font-serif max-w-4xl text-left">
+          <h1 className="text-6xl md:text-8xl lg:text-[7.25rem] font-heading font-normal tracking-tight leading-[1.02] text-white mb-10 font-serif max-w-5xl text-left">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={{ y: "100%" }}
@@ -407,7 +407,7 @@ export default function Home() {
       </section>
 
       {/* Why Property Owners Choose Us Section */}
-      <section className="px-6 max-w-7xl mx-auto w-full py-12">
+      <section className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-6 mb-16">
           <div className="max-w-xl text-left">
             <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
@@ -456,7 +456,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
-              <TiltCard className="bg-white border border-slate-100 rounded-2xl p-6 flex flex-col gap-5 hover:shadow-2xl transition-all duration-500 group cursor-pointer sweep-effect hover:-translate-y-[10px]">
+              <TiltCard className="bg-white border border-slate-100 rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl transition-all duration-500 group cursor-pointer sweep-effect hover:-translate-y-[10px]">
                 <div className="w-10 h-10 rounded-full bg-[#0F172A] flex items-center justify-center text-white shrink-0 self-start transition-colors duration-300 group-hover:bg-secondary">
                   <item.icon className="w-5 h-5 text-secondary group-hover:text-white transition-colors duration-300" />
                 </div>
@@ -479,7 +479,7 @@ export default function Home() {
       </section>
 
       {/* Our Services Section */}
-      <section className="relative overflow-hidden bg-slate-50 text-primary py-16 px-6" id="services">
+      <section className="relative overflow-hidden bg-slate-50 text-primary py-24 md:py-36 px-6" id="services">
         {/* Decorative Background Elements */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none" />
@@ -528,7 +528,7 @@ export default function Home() {
             ].map((service, idx) => (
               <GlowGlassCard
                 key={idx}
-                className="snap-start min-w-[280px] md:min-w-[320px] flex-1 bg-white rounded-3xl p-8 border border-slate-100 shadow-lg hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+                className="snap-start min-w-[300px] md:min-w-[340px] flex-1 bg-white rounded-3xl p-10 md:p-12 border border-slate-100 shadow-lg hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
               >
                 <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6 text-secondary group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
                   <service.icon className="w-6 h-6" />
@@ -542,7 +542,7 @@ export default function Home() {
       </section>
 
       {/* Our Process Section */}
-      <section ref={processRef} className="px-6 max-w-7xl mx-auto w-full pt-8 pb-12 text-center">
+      <section ref={processRef} className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36 text-center">
         <div className="mb-16">
           <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
             Our Process
@@ -625,7 +625,7 @@ export default function Home() {
       </section>
 
       {/* Our Markets Section */}
-      <section ref={marketsSectionRef} className="px-6 max-w-7xl mx-auto w-full py-12" id="markets">
+      <section ref={marketsSectionRef} className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36" id="markets">
         <div className="flex flex-col md:flex-row justify-between items-baseline mb-12 gap-6">
           <div className="text-left">
             <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
@@ -694,7 +694,7 @@ export default function Home() {
 
 
       {/* CTA Section */}
-      <section className="px-6 max-w-[1400px] mx-auto w-full pt-12 pb-8">
+      <section className="px-6 max-w-[1400px] mx-auto w-full py-24 md:py-36">
         <div className="relative bg-[#C65D29] text-white rounded-2xl px-12 md:px-16 py-12 overflow-hidden flex flex-col xl:flex-row items-center justify-between gap-8 shadow-2xl shadow-[#C65D29]/40">
           
           {/* Subtle background gradient/pattern overlay for the right side */}

@@ -74,9 +74,9 @@ export default function AboutPage() {
             <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-4 block bg-secondary/10 px-4 py-1.5 rounded-full border border-secondary/20 w-fit mx-auto">
               Our Philosophy
             </span>
-            <h1 className="flex flex-col items-center justify-center text-4xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight mb-8 text-center">
+            <h1 className="flex flex-col items-center justify-center text-5xl md:text-7xl lg:text-[5.5rem] font-heading font-bold tracking-tight mb-8 text-center leading-[1.05]">
               <span>Protecting Assets.</span>
-              <span className="text-secondary italic font-light mt-1">Optimizing Returns.</span>
+              <span className="text-secondary italic font-light mt-2">Optimizing Returns.</span>
             </h1>
           </motion.div>
 
@@ -93,7 +93,7 @@ export default function AboutPage() {
 
 
       {/* Core Values */}
-      <section className="px-6 max-w-7xl mx-auto w-full pt-12">
+      <section className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36">
         <div className="text-center mb-20 max-w-2xl mx-auto">
           <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
             Our Commitments
@@ -114,7 +114,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.15 }}
-                className="glass-card rounded-[2rem] p-8 md:p-10 border border-slate-100 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between"
+                className="glass-card rounded-[2.5rem] p-10 md:p-12 border border-slate-100 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between"
               >
                 <div>
                   <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-6 text-secondary transition-transform duration-500 group-hover:scale-105">
@@ -130,7 +130,7 @@ export default function AboutPage() {
       </section>
 
       {/* Inspection Details Section */}
-      <section className="px-6 max-w-7xl mx-auto w-full py-12">
+      <section className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36">
         <div className="glass-card rounded-[2.5rem] p-8 md:p-16 overflow-hidden border border-slate-100 shadow-xl relative bg-slate-50/50">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             <div>
@@ -171,7 +171,7 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="px-6 max-w-7xl mx-auto w-full py-12">
+      <section className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36">
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
             The Abode Advantage
@@ -192,7 +192,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white rounded-3xl p-8 border border-slate-100 shadow-lg hover:-translate-y-2 transition-all duration-300 group"
+                className="bg-white rounded-3xl p-10 border border-slate-100 shadow-lg hover:-translate-y-2 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6 text-secondary group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
                   <Icon className="w-6 h-6" />
@@ -207,7 +207,7 @@ export default function AboutPage() {
 
 
       {/* CTA Section */}
-      <section className="px-6 max-w-5xl mx-auto w-full text-center pt-12 pb-8">
+      <section className="px-6 max-w-5xl mx-auto w-full text-center py-24 md:py-36">
         <div className="rounded-[3rem] p-10 md:p-16 bg-primary text-white border border-primary/20 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 flex flex-col items-center">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight">Ready to Protect Your Investment?</h2>

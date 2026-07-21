@@ -109,14 +109,14 @@ export default function ListPropertyPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 pb-24 font-sans bg-white">
       {/* Wizard Header */}
-      <div className="mb-16 text-center max-w-2xl mx-auto">
-        <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
+      <div className="pt-16 pb-12 text-center max-w-3xl mx-auto">
+        <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-4 block">
           For Charlotte Property Owners & Investors
         </span>
-        <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
+        <h1 className="text-5xl md:text-7xl lg:text-[4.75rem] font-heading font-bold text-primary mb-6 leading-tight">
           Request Your Free Rental Analysis
         </h1>
-        <p className="text-slate-600 font-normal text-sm leading-relaxed">
+        <p className="text-slate-600 font-normal text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
           Submit your property profile below to begin our detailed market audit and receive a customized management assessment.
         </p>
       </div>
@@ -140,7 +140,7 @@ export default function ListPropertyPage() {
       )}
 
       {/* Form Steps */}
-      <form onSubmit={(e) => { e.preventDefault(); handleNext(); }} className="glass-card rounded-[2.5rem] p-8 md:p-12 border border-slate-100 shadow-2xl relative overflow-hidden bg-white max-w-3xl mx-auto">
+      <form onSubmit={(e) => { e.preventDefault(); handleNext(); }} className="glass-card rounded-[3rem] p-10 md:p-16 border border-slate-100 shadow-2xl relative overflow-hidden bg-white max-w-3xl mx-auto">
         <input type="hidden" name="property_type" value={category} />
         <input type="hidden" name="amenities" value={selectedAmenities.join(", ")} />
         <AnimatePresence mode="wait">
