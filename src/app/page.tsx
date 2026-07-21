@@ -14,7 +14,9 @@ import {
   Home as HomeIcon,
   Play,
   BarChart2,
-  User
+  User,
+  Clock,
+  CheckCircle2
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -306,7 +308,7 @@ export default function Home() {
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
                 className="block"
               >
-                Your Property.
+                Expert Property
               </motion.span>
             </span>
             <span className="block overflow-hidden pb-1">
@@ -316,7 +318,7 @@ export default function Home() {
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
                 className="block"
               >
-                Our <span className="text-[#D97745]">Passion.</span>
+                <span className="text-[#D97745]">Management.</span>
               </motion.span>
             </span>
           </h1>
@@ -328,25 +330,67 @@ export default function Home() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.45 }}
             className="text-[#C5CCD6] text-[15px] md:text-[17px] mb-10 max-w-[42rem] font-light leading-relaxed text-left"
           >
-            We handle everything—tenant screening, rent collection, maintenance, and more—so you can enjoy passive income without the stress.
+            We handle everything—from tenant screening and rent collection to maintenance—so you can enjoy passive income without the stress.
           </motion.p>
           
           {/* CTA Buttons Scale */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto"
+            className="flex flex-col items-start w-full gap-8 mt-4"
           >
-            <Link href="/list-property" className="w-full sm:w-auto">
-              <motion.button 
-                whileHover={{ scale: 1.02 }} 
-                whileTap={{ scale: 0.98 }} 
-                className="w-full sm:w-auto rounded-lg font-sans font-medium text-[15px] px-8 h-[54px] flex items-center justify-center gap-3 bg-[#D97745] hover:bg-[#c4683a] text-white transition-all cursor-pointer shadow-lg shadow-[#D97745]/20"
-              >
-                Get Free Rental Analysis <ArrowRight className="w-[18px] h-[18px] text-white stroke-[2]" />
-              </motion.button>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 w-full sm:w-auto">
+              <Link href="/list-property" className="w-full sm:w-auto block">
+                <motion.button 
+                  whileHover={{ scale: 1.05, translateY: -2 }} 
+                  whileTap={{ scale: 0.98 }} 
+                  className="w-full sm:w-auto rounded-lg font-sans font-semibold text-lg px-10 py-4 flex items-center justify-center gap-3 bg-[#D97745] hover:bg-[#e88856] text-white transition-all cursor-pointer shadow-xl shadow-[#D97745]/30 hover:shadow-[#D97745]/50 border border-[#D97745]"
+                >
+                  Get Free Rental Analysis <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
+                </motion.button>
+              </Link>
+              
+              <Link href="/services" className="w-full sm:w-auto block">
+                <motion.button 
+                  whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.1)" }} 
+                  whileTap={{ scale: 0.98 }} 
+                  className="w-full sm:w-auto rounded-lg font-sans font-medium text-lg px-8 py-4 flex items-center justify-center gap-3 bg-transparent text-white transition-all cursor-pointer border border-white/30 hover:border-white/60"
+                >
+                  Explore Services
+                </motion.button>
+              </Link>
+            </div>
+
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="flex flex-wrap items-center gap-3 sm:gap-4 text-[13px] text-[#C5CCD6] font-light"
+            >
+              <div className="flex items-center gap-1.5">
+                <div className="flex text-[#D97745]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                  ))}
+                </div>
+              </div>
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5 text-[#D97745]" />
+                <span>Licensed Property Managers</span>
+              </div>
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#D97745]" />
+                <span>Response within 24 Hours</span>
+              </div>
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#D97745]" />
+                <span>No Upfront Fees</span>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
 
