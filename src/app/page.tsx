@@ -360,15 +360,12 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-300 font-normal pt-2"
+              className="flex flex-wrap items-center gap-4 sm:gap-7 text-xs sm:text-sm text-slate-300 font-normal pt-3"
             >
-              <div className="flex items-center gap-2">
-                <div className="flex text-[#D97745]">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <span className="font-semibold text-white">5.0</span>
+              <div className="flex items-center text-[#D97745] gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-current" />
+                ))}
               </div>
               <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
               <div className="flex items-center gap-2">
