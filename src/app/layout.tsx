@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -44,10 +45,11 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
-      <body className="flex flex-col min-h-screen font-sans bg-background text-foreground overflow-x-hidden selection:bg-secondary/30 selection:text-primary">
+      <body className="flex flex-col min-h-screen font-sans bg-background text-foreground overflow-x-hidden selection:bg-secondary/30 selection:text-primary pb-16 md:pb-0">
         <Navbar />
         <main className="flex-1 flex flex-col pt-32">{children}</main>
         <Footer />
+        <StickyMobileCTA />
         <Analytics />
         <SpeedInsights />
       </body>

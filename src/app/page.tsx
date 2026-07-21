@@ -269,7 +269,7 @@ export default function Home() {
       {/* Hero Section */}
       <section 
         ref={heroRef}
-        className="relative min-h-screen flex flex-col justify-between px-6 md:px-12 pt-32 pb-8 bg-[#071321] text-white overflow-hidden"
+        className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-between px-5 md:px-12 pt-24 md:pt-32 pb-8 bg-[#071321] text-white overflow-hidden"
       >
         <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
           <motion.div style={{ y: heroBgY, scale: 1.1 }} className="relative w-full h-full">
@@ -286,22 +286,22 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#071321] via-transparent to-transparent z-10" />
         </div>
 
-        <div className="z-20 max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center items-start text-left py-12">
+        <div className="z-20 max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center items-start text-left py-8 md:py-12">
           {/* Badge Reveal */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-2 border border-white/20 bg-slate-950/40 backdrop-blur-md px-4 py-1.5 rounded-full mb-6 self-start"
+            className="flex items-center gap-2 border border-white/20 bg-slate-950/40 backdrop-blur-md px-3.5 py-1.5 rounded-full mb-4 md:mb-6 self-start"
           >
             <Star className="w-3.5 h-3.5 text-[#D97745] fill-none stroke-[2.5]" />
-            <span className="text-white text-[10px] font-bold tracking-[0.2em] uppercase font-sans">
+            <span className="text-white text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase font-sans">
               Full-Service Property Management
             </span>
           </motion.div>
 
           {/* Headline line by line Reveal */}
-          <h1 className="text-6xl md:text-8xl lg:text-[7.25rem] font-heading font-normal tracking-tight leading-[1.02] text-white mb-10 font-serif max-w-5xl text-left">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[7.25rem] font-heading font-normal tracking-tight leading-[1.08] md:leading-[1.02] text-white mb-6 md:mb-10 font-serif max-w-5xl text-left">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={{ y: "100%" }}

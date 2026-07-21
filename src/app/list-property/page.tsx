@@ -107,23 +107,23 @@ export default function ListPropertyPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-6 pb-24 font-sans bg-white">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-24 font-sans bg-white">
       {/* Wizard Header */}
-      <div className="pt-16 pb-12 text-center max-w-3xl mx-auto">
-        <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-4 block">
+      <div className="pt-2 pb-6 md:pt-16 md:pb-12 text-center max-w-3xl mx-auto">
+        <span className="text-secondary font-bold tracking-[0.2em] text-[11px] md:text-xs uppercase mb-2 md:mb-4 block">
           For Charlotte Property Owners & Investors
         </span>
-        <h1 className="text-5xl md:text-7xl lg:text-[4.75rem] font-heading font-bold text-primary mb-6 leading-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-[4.75rem] font-heading font-bold text-primary mb-3 md:mb-6 leading-tight">
           Request Your Free Rental Analysis
         </h1>
-        <p className="text-slate-600 font-normal text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+        <p className="text-slate-600 font-normal text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
           Submit your property profile below to begin our detailed market audit and receive a customized management assessment.
         </p>
       </div>
 
       {/* Progress Bar */}
       {step <= 3 && (
-        <div className="mb-12 max-w-3xl mx-auto">
+        <div className="mb-6 md:mb-12 max-w-3xl mx-auto">
           <div className="flex justify-between items-center text-[10px] font-bold tracking-widest text-slate-500 mb-4">
             <span className={step >= 1 ? "text-primary" : ""}>01. PROPERTY DETAILS</span>
             <span className={step >= 2 ? "text-primary" : ""}>02. SPECIFICATIONS</span>
