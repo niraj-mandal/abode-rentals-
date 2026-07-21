@@ -278,12 +278,13 @@ export default function Home() {
               alt="Luxury Architecture"
               fill
               unoptimized
-              className="object-cover object-top opacity-95 select-none pointer-events-none"
+              className="object-cover object-[75%_center] sm:object-[80%_center] md:object-top opacity-95 select-none pointer-events-none"
               priority
+              sizes="(max-width: 768px) 100vw, 100vw"
             />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#071321] via-[#071321]/60 to-[#071321]/20 z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071321] via-transparent to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#071321] via-[#071321]/80 sm:via-[#071321]/60 to-[#071321]/20 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#071321] via-[#071321]/30 md:via-transparent to-transparent z-10" />
         </div>
 
         <div className="z-20 max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center items-start text-left py-8 md:py-12">
