@@ -2,38 +2,67 @@
 
 import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
-interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref" | "children"> {
-  variant?: "primary" | "secondary" | "glass" | "outline";
+export interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref"> {
+  variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
+  isLoading?: boolean;
   children?: React.ReactNode;
 }
 
-export function Button({ variant = "primary", size = "md", className, children, ...props }: ButtonProps) {
-  const baseStyles = "relative overflow-hidden font-medium rounded-full inline-flex items-center justify-center transition-all duration-300 font-sans cursor-pointer";
-  
+export function Button({
+  variant = "primary",
+  size = "md",
+  isLoading = false,
+  disabled,
+  className,
+  children,
+  ...props
+}: ButtonProps) {
+  // Shared base styles across ALL buttons:
+  // Same border radius (rounded-xl), same typography (font-sans font-semibold tracking-wide),
+  // same spacing rhythm, same transition, same disabled & loading states.
+  const baseStyles = 
+    "relative overflow-hidden inline-flex items-center justify-center gap-2.5 font-sans font-semibold tracking-wide rounded-xl transition-all duration-300 ease-out cursor-pointer select-none disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed";
+
+  // Unified Variant Styling
   const variants = {
-    primary: "bg-primary text-primary-foreground shadow-[0_4px_12px_rgba(15,23,42,0.12)] hover:bg-slate-800 hover:shadow-[0_6px_20px_rgba(15,23,42,0.2)]",
-    secondary: "bg-secondary text-primary-foreground shadow-[0_4px_12px_rgba(217,119,69,0.2)] hover:bg-[#B85323] hover:shadow-[0_6px_20px_rgba(217,119,69,0.35)]",
-    glass: "glass-card text-foreground hover:bg-light-bg border-white/10",
-    outline: "border border-primary text-primary hover:bg-primary hover:text-primary-foreground",
+    primary: 
+      "bg-[#D97745] hover:bg-[#e88856] text-white shadow-lg shadow-[#D97745]/25 hover:shadow-xl hover:shadow-[#D97745]/40 border border-[#D97745]",
+    secondary: 
+      "bg-[#0F172A] hover:bg-[#1E293B] text-white shadow-md shadow-slate-900/20 hover:shadow-lg border border-[#0F172A]",
+    ghost: 
+      "bg-transparent hover:bg-white/10 text-white border border-white/30 hover:border-white/60",
   };
 
+  // Unified Spacing
   const sizes = {
-    sm: "px-4 py-2 text-xs tracking-wider uppercase",
-    md: "px-6 py-3 text-sm tracking-widest uppercase",
-    lg: "px-8 py-4 text-sm tracking-widest uppercase font-semibold",
+    sm: "px-4 py-2 text-xs",
+    md: "px-6 py-3 text-sm",
+    lg: "px-8 py-4 text-base",
   };
+
+  const isDisabled = disabled || isLoading;
 
   return (
     <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={isDisabled ? undefined : { scale: 1.03, y: -1 }}
+      whileTap={isDisabled ? undefined : { scale: 0.97 }}
+      disabled={isDisabled}
       className={cn(baseStyles, variants[variant], sizes[size], className)}
       {...props}
     >
-      <span className="relative z-10">{children}</span>
+      {isLoading ? (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin shrink-0" />
+          <span>Loading...</span>
+        </>
+      ) : (
+        children
+      )}
     </motion.button>
   );
 }
+
 

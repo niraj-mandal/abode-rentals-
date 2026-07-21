@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 
 // High-Performance Animated Counter updating DOM directly to avoid re-renders
@@ -342,23 +343,15 @@ export default function Home() {
           >
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 w-full sm:w-auto">
               <Link href="/list-property" className="w-full sm:w-auto block">
-                <motion.button 
-                  whileHover={{ scale: 1.05, translateY: -2 }} 
-                  whileTap={{ scale: 0.98 }} 
-                  className="w-full sm:w-auto rounded-lg font-sans font-semibold text-lg px-10 py-4 flex items-center justify-center gap-3 bg-[#D97745] hover:bg-[#e88856] text-white transition-all cursor-pointer shadow-xl shadow-[#D97745]/30 hover:shadow-[#D97745]/50 border border-[#D97745]"
-                >
+                <Button variant="primary" size="lg" className="w-full sm:w-auto">
                   Get Free Rental Analysis <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
-                </motion.button>
+                </Button>
               </Link>
               
               <Link href="/#services" className="w-full sm:w-auto block">
-                <motion.button 
-                  whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.1)" }} 
-                  whileTap={{ scale: 0.98 }} 
-                  className="w-full sm:w-auto rounded-lg font-sans font-medium text-lg px-8 py-4 flex items-center justify-center gap-3 bg-transparent text-white transition-all cursor-pointer border border-white/30 hover:border-white/60"
-                >
+                <Button variant="ghost" size="lg" className="w-full sm:w-auto">
                   Explore Services
-                </motion.button>
+                </Button>
               </Link>
             </div>
 
@@ -717,13 +710,9 @@ export default function Home() {
           {/* Button */}
           <div className="shrink-0 relative z-10 w-full md:w-auto flex justify-center md:justify-end mt-4 xl:mt-0">
             <Link href="/list-property">
-              <motion.button 
-                whileHover={{ scale: 1.04 }} 
-                whileTap={{ scale: 0.98 }} 
-                className="bg-white text-[#C65D29] hover:bg-slate-100 rounded-lg font-semibold tracking-wide text-sm px-8 py-3.5 shadow-xl transition-all cursor-pointer flex items-center justify-center whitespace-nowrap border border-white"
-              >
+              <Button variant="secondary" size="lg">
                 Get Free Rental Analysis
-              </motion.button>
+              </Button>
             </Link>
           </div>
         </div>

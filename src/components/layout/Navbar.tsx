@@ -114,7 +114,7 @@ export function Navbar() {
 
         <div className="hidden md:block">
           <Link href="/list-property">
-            <Button variant="secondary" size="sm" className="rounded-md font-bold px-5 py-2 text-[10px]">
+            <Button variant="primary" size="sm">
               Free Rental Analysis
             </Button>
           </Link>
@@ -177,7 +177,7 @@ export function Navbar() {
                   className="mt-6 pt-6 border-t border-white/10"
                 >
                   <Link href="/list-property" onClick={() => setIsOpen(false)} className="w-full block">
-                    <Button className="w-full rounded-full font-bold uppercase tracking-widest text-[13px] bg-[#D97745] hover:bg-[#c4683a] text-white py-6 shadow-[0_0_20px_rgba(217,119,69,0.3)] transition-all">
+                    <Button variant="primary" size="md" className="w-full">
                       Free Rental Analysis
                     </Button>
                   </Link>

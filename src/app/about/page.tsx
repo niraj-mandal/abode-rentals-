@@ -216,7 +216,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/list-property">
-                <Button variant="secondary" size="lg" className="w-full sm:w-auto font-bold rounded-full">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto">
                   Get Free Analysis
                 </Button>
               </Link>

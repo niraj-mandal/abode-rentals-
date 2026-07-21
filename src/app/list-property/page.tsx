@@ -458,21 +458,23 @@ export default function ListPropertyPage() {
           <div className="flex justify-between mt-12 pt-6 border-t border-slate-100">
             <Button
               type="button"
-              variant="glass"
+              variant="ghost"
+              size="md"
               onClick={handleBack}
               disabled={step === 1}
-              className={`flex items-center gap-2 cursor-pointer ${step === 1 ? "opacity-30 pointer-events-none" : ""}`}
+              className={`flex items-center gap-2 border-slate-300 text-slate-700 hover:bg-slate-100 ${step === 1 ? "opacity-30 pointer-events-none" : ""}`}
             >
               <ChevronLeft className="w-4 h-4" /> Back
             </Button>
             
             <Button
               type={step === 3 ? "submit" : "button"}
+              variant="primary"
+              size="md"
               onClick={step === 3 ? undefined : handleNext}
-              disabled={isSubmitting}
-              className="flex items-center gap-2 cursor-pointer"
+              isLoading={isSubmitting}
             >
-              {step === 3 ? (isSubmitting ? "Submitting..." : "Submit Onboarding Dossier") : "Continue"}
+              {step === 3 ? "Submit Onboarding Dossier" : "Continue"}
             </Button>
           </div>
         )}
