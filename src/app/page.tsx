@@ -300,8 +300,8 @@ export default function Home() {
             </span>
           </motion.div>
 
-          {/* Headline line by line Reveal */}
-          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[7.25rem] font-heading font-normal tracking-tight leading-[1.08] md:leading-[1.02] text-white mb-6 md:mb-10 font-serif max-w-5xl text-left">
+          {/* Official Hero Headline */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[6.75rem] font-heading font-normal tracking-tight leading-[1.08] md:leading-[1.02] text-white mb-6 md:mb-8 font-serif max-w-5xl text-left">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={{ y: "100%" }}
@@ -309,7 +309,7 @@ export default function Home() {
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
                 className="block"
               >
-                Expert Property
+                Your Property.
               </motion.span>
             </span>
             <span className="block overflow-hidden pb-1">
@@ -319,69 +319,76 @@ export default function Home() {
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
                 className="block"
               >
-                <span className="text-[#D97745]">Management.</span>
+                <span className="text-[#D97745]">Better Managed.</span>
               </motion.span>
             </span>
           </h1>
 
-          {/* Description Fade Up */}
+          {/* Value Proposition Subheading */}
           <motion.p
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.45 }}
-            className="text-[#C5CCD6] text-[15px] md:text-[17px] mb-10 max-w-[42rem] font-light leading-relaxed text-left"
+            className="text-slate-300 text-base sm:text-lg md:text-xl mb-10 max-w-[48rem] font-light leading-relaxed text-left"
           >
-            We handle everything—from tenant screening and rent collection to maintenance—so you can enjoy passive income without the stress.
+            From tenant placement and rent collection to maintenance and financial reporting, we manage every detail so you can enjoy stress-free ownership and stronger returns.
           </motion.p>
           
-          {/* CTA Buttons Scale */}
+          {/* CTA & Trust Hierarchy */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
-            className="flex flex-col items-start w-full gap-8 mt-4"
+            className="flex flex-col items-start w-full gap-8 mt-2"
           >
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 w-full sm:w-auto">
               <Link href="/list-property" className="w-full sm:w-auto block">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto min-h-[54px] px-9 text-base shadow-xl shadow-[#D97745]/30">
                   Get Free Rental Analysis <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
                 </Button>
               </Link>
               
               <Link href="/#services" className="w-full sm:w-auto block">
-                <Button variant="ghost" size="lg" className="w-full sm:w-auto">
+                <Button variant="ghost" size="lg" className="w-full sm:w-auto min-h-[54px] px-8 text-base">
                   Explore Services
                 </Button>
               </Link>
             </div>
 
+            {/* Premium Trust Indicators */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="flex flex-wrap items-center gap-3 sm:gap-4 text-[13px] text-[#C5CCD6] font-light"
+              className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-300 font-normal pt-2"
             >
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
                 <div className="flex text-[#D97745]">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                    <Star key={i} className="w-4 h-4 fill-current" />
                   ))}
                 </div>
+                <span className="font-semibold text-white">5.0</span>
               </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
-              <div className="flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-[#D97745]" />
-                <span>Licensed Property Managers</span>
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-[#D97745]" />
+                <span>Professional Management</span>
               </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#D97745]" />
-                <span>Response within 24 Hours</span>
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-[#D97745]" />
+                <span>Fast Response</span>
               </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#D97745]" />
-                <span>No Upfront Fees</span>
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-[#D97745]" />
+                <span>Transparent Reporting</span>
+              </div>
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#D97745]" />
+                <span>Licensed & Insured</span>
               </div>
             </motion.div>
           </motion.div>
