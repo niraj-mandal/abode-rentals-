@@ -214,42 +214,6 @@ export default function AboutPage() {
       </section>
 
 
-      {/* Leadership / Founder */}
-      <section className="px-6 max-w-7xl mx-auto w-full py-12">
-        <div className="text-center mb-20 max-w-2xl mx-auto">
-          <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
-            Experienced Specialists
-          </span>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-6">Our Leadership</h2>
-        </div>
-
-        <div className="flex justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="group max-w-md w-full"
-          >
-            <div className="relative aspect-[3/4] w-full rounded-3xl overflow-hidden mb-6 border border-slate-200 shadow-xl">
-              <Image
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop"
-                alt="Niraj Mandal"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent opacity-90" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <h3 className="text-2xl font-heading font-bold text-white mb-1">Niraj Mandal</h3>
-                <p className="text-secondary text-sm font-semibold tracking-wider uppercase mb-3">Founder & CEO</p>
-                <p className="text-slate-300 text-sm font-light leading-relaxed">
-                  Niraj founded Abode Rental to bring transparent, high-quality property management to the North Carolina region, helping investors maximize returns with zero hassle.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="px-6 max-w-5xl mx-auto w-full text-center py-24 md:py-36">
         <div className="rounded-[3rem] p-10 md:p-16 bg-primary text-white border border-primary/20 relative overflow-hidden shadow-2xl">
