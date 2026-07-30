@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Shield, Award, CheckCircle2, ChevronRight, Clock, HeartHandshake, TrendingUp, ShieldCheck, ArrowRight } from "lucide-react";
+import { Star, Shield, Award, CheckCircle2, Clock, HeartHandshake, TrendingUp, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
@@ -87,6 +87,14 @@ export default function AboutPage() {
             className="text-slate-300 text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto"
           >
             Abode was founded with a single mission: to allow real estate investors to build wealth without the daily burden of property management. We treat every home in our registry as a premier asset.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-secondary text-sm md:text-base font-bold tracking-wider uppercase mt-8"
+          >
+            Now serving North Carolina property owners
           </motion.p>
         </div>
       </section>
@@ -205,6 +213,42 @@ export default function AboutPage() {
         </div>
       </section>
 
+
+      {/* Leadership / Founder */}
+      <section className="px-6 max-w-7xl mx-auto w-full py-12">
+        <div className="text-center mb-20 max-w-2xl mx-auto">
+          <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
+            Experienced Specialists
+          </span>
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-6">Our Leadership</h2>
+        </div>
+
+        <div className="flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="group max-w-md w-full"
+          >
+            <div className="relative aspect-[3/4] w-full rounded-3xl overflow-hidden mb-6 border border-slate-200 shadow-xl">
+              <Image
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop"
+                alt="Niraj Mandal"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale group-hover:grayscale-0"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent opacity-90" />
+              <div className="absolute bottom-8 left-8 right-8">
+                <h3 className="text-2xl font-heading font-bold text-white mb-1">Niraj Mandal</h3>
+                <p className="text-secondary text-sm font-semibold tracking-wider uppercase mb-3">Founder & CEO</p>
+                <p className="text-slate-300 text-sm font-light leading-relaxed">
+                  Niraj founded Abode Rental to bring transparent, high-quality property management to the North Carolina region, helping investors maximize returns with zero hassle.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="px-6 max-w-5xl mx-auto w-full text-center py-24 md:py-36">

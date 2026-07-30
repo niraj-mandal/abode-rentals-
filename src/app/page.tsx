@@ -12,9 +12,6 @@ import {
   Wrench,
   MessageSquare,
   Home as HomeIcon,
-  Play,
-  BarChart2,
-  User,
   Clock,
   CheckCircle2
 } from "lucide-react";

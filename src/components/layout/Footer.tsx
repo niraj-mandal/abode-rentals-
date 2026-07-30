@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function Footer() {
@@ -75,18 +75,20 @@ export function Footer() {
                 <div className="w-12 h-12 rounded-full bg-[#323842] flex flex-shrink-0 items-center justify-center shadow-inner">
                   <Phone className="w-5 h-5 text-white" />
                 </div>
-                <a href="tel:7043259240" className="text-[18px] font-bold text-white hover:text-secondary transition-colors">
-                  +1 704 325 9240
+                <a href="tel:7043331234" className="text-[18px] font-bold text-white hover:text-secondary transition-colors">
+                  +1 704 333 1234
                 </a>
               </div>
-
               <div className="flex items-center gap-5">
                 <div className="w-12 h-12 rounded-full bg-[#323842] flex flex-shrink-0 items-center justify-center shadow-inner">
                   <Mail className="w-5 h-5 text-white" />
                 </div>
-                <a href="mailto:info@aboderental.com" className="text-[16px] font-bold text-blue-400 hover:text-blue-300 transition-colors tracking-wide">
-                  info@aboderental.com
-                </a>
+                <div className="flex flex-col">
+                  <a href="mailto:info@aboderental.com" className="text-[16px] font-bold text-blue-400 hover:text-blue-300 transition-colors tracking-wide">
+                    info@aboderental.com
+                  </a>
+                  <span className="text-[14px] text-slate-300 mt-1">500 S College St, Charlotte, NC 28202</span>
+                </div>
               </div>
             </div>
           </div>
