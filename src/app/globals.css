@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  /* Warm editorial palette taken from the logo: charcoal ink, copper accent */
-  --color-paper: #f7f2ec;
-  --color-stone: #ede5db;
-  --color-ink: #1e2523;
-  --color-ink-soft: #2c3431;
-  --color-muted: #65605a;
-  --color-line: #dcd2c6;
-  --color-brand: #b4693e;
-  /* darker copper for small text and filled buttons (AA contrast) */
-  --color-brand-deep: #8a4c27;
+  /* Draft 2 — dark luxury. Token names kept from draft 1: paper = page background, ink = main text. */
+  --color-paper: #0f1513;
+  --color-stone: #161d1b;
+  --color-ink: #ede6dc;
+  --color-ink-soft: #c9c2b8;
+  --color-muted: #9aa39f;
+  --color-line: rgb(237 230 220 / 0.12);
+  --color-brand: #c47a4c;
+  /* lighter copper for small text on the dark background (AA contrast) */
+  --color-brand-deep: #d9966b;
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-serif: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -22,6 +22,7 @@
   }
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
   body {
     background-color: var(--color-paper);
@@ -36,17 +37,19 @@
 
 @layer components {
   .eyebrow {
-    @apply flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted;
+    @apply flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-deep;
   }
   .eyebrow::before {
     content: "";
     @apply block h-px w-8 bg-brand;
   }
   .display {
-    @apply font-serif font-light tracking-[-0.02em] leading-[0.98];
+    @apply font-serif font-semibold uppercase leading-[0.92] tracking-[-0.015em];
+    font-stretch: 118%;
+    overflow-wrap: break-word; /* wide caps: never let one long word widen the page */
   }
   .field {
-    @apply w-full rounded-none border-0 border-b border-line bg-transparent px-0 py-3 text-base text-ink placeholder:text-muted/70 transition-colors focus:border-ink focus:outline-none;
+    @apply w-full rounded-none border-0 border-b border-line bg-transparent px-0 py-3 text-base text-ink placeholder:text-muted/70 transition-colors focus:border-brand focus:outline-none;
   }
   .label {
     @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-muted;

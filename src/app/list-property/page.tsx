@@ -117,7 +117,7 @@ export default function ListPropertyPage() {
       <aside className="lg:col-span-4">
         <div className="lg:sticky lg:top-32">
           <p className="eyebrow">For Charlotte owners & investors</p>
-          <h1 className="display mt-6 text-5xl md:text-6xl">
+          <h1 className="display mt-6 text-[2.25rem] sm:text-5xl md:text-6xl">
             Your free <span className="italic text-brand">rental analysis.</span>
           </h1>
           <p className="mt-6 leading-relaxed text-muted">
@@ -148,7 +148,7 @@ export default function ListPropertyPage() {
 
       <form
         onSubmit={(e) => { e.preventDefault(); handleNext(); }}
-        className="rounded-sm bg-white/60 p-6 ring-1 ring-line sm:p-10 md:p-14 lg:col-span-8"
+        className="rounded-sm bg-stone p-6 ring-1 ring-line sm:p-10 md:p-14 lg:col-span-8"
       >
         <input type="hidden" name="property_type" value={category} />
         <input type="hidden" name="amenities" value={selectedAmenities.join(", ")} />
@@ -318,7 +318,7 @@ export default function ListPropertyPage() {
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand text-ink">
                 <Check className="h-7 w-7" />
               </span>
-              <h2 className="display mt-8 text-5xl">Request received.</h2>
+              <h2 className="display mt-8 text-[2.25rem] sm:text-5xl">Request received.</h2>
               <p className="mt-4 max-w-lg leading-relaxed text-muted">
                 Thank you, <span className="font-semibold text-ink">{ownerName}</span>. Your request for{" "}
                 <span className="font-semibold text-ink">{title}</span> is with our Charlotte onboarding team.

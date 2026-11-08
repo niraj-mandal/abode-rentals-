@@ -45,7 +45,7 @@ export default function AboutPage() {
       <section className="mx-auto w-full max-w-[1320px] px-5 pt-10 pb-20 md:px-10 md:pt-16 md:pb-28">
         <Reveal>
           <p className="eyebrow">Our philosophy</p>
-          <h1 className="display mt-8 max-w-5xl text-[3.2rem] sm:text-7xl lg:text-[6.5rem]">
+          <h1 className="display mt-8 max-w-5xl text-[2.2rem] sm:text-6xl lg:text-[5.5rem]">
             Protecting assets.
             <br />
             <span className="italic text-brand">Optimising returns.</span>
@@ -65,7 +65,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1320px] px-5 py-24 md:px-10 md:py-32">
           <Reveal className="max-w-2xl">
             <p className="eyebrow text-paper/60">Our commitments</p>
-            <h2 className="display mt-6 text-5xl md:text-6xl">
+            <h2 className="display mt-6 text-[2.25rem] sm:text-5xl md:text-6xl">
               The <span className="italic text-brand">Abode</span> standard
             </h2>
             <p className="mt-6 leading-relaxed text-paper/65">
@@ -100,7 +100,7 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={0.1} className="lg:col-span-6 lg:col-start-7">
             <p className="eyebrow">Rigorous audits</p>
-            <h2 className="display mt-6 text-5xl md:text-6xl">
+            <h2 className="display mt-6 text-[2.25rem] sm:text-5xl md:text-6xl">
               Our 100-point <span className="italic">inspection</span>
             </h2>
             <p className="mt-6 leading-relaxed text-muted">
@@ -124,7 +124,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1320px] px-5 py-24 md:px-10 md:py-32">
           <Reveal>
             <p className="eyebrow">The Abode advantage</p>
-            <h2 className="display mt-6 text-5xl md:text-6xl">Why owners choose us</h2>
+            <h2 className="display mt-6 text-[2.25rem] sm:text-5xl md:text-6xl">Why owners choose us</h2>
           </Reveal>
           <div className="mt-14 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
             {advantages.map((a, i) => (
@@ -140,7 +140,7 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="mx-auto w-full max-w-[1320px] px-5 py-24 md:px-10 md:py-32">
         <Reveal className="grid gap-10 lg:grid-cols-12 lg:items-end">
-          <h2 className="display text-5xl md:text-7xl lg:col-span-8">
+          <h2 className="display text-[2.25rem] sm:text-5xl md:text-7xl lg:col-span-8">
             Ready to protect <span className="italic text-brand">your investment?</span>
           </h2>
           <div className="lg:col-span-4">
