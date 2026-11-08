@@ -2,21 +2,19 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { 
-  Building2, MapPin, ListPlus, ShieldCheck, 
-  ChevronLeft, Check, CheckCircle2,
-  Mail, Calendar, Phone
-} from "lucide-react";
+import { Button, buttonStyles } from "@/components/ui/Button";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 
 const CATEGORIES = ["Single Family", "Townhome", "Penthouse", "Waterfront Estate", "Multi-Family Portfolio"];
 
 const AMENITIES_OPTIONS = [
-  "Smart Home System", "Heated Pool & Spa", "Gated Security Access", 
-  "Wine Cellar", "Professional Chef Kitchen", "Lake Norman Dock", 
+  "Smart Home System", "Heated Pool & Spa", "Gated Security Access",
+  "Wine Cellar", "Professional Chef Kitchen", "Lake Norman Dock",
   "Private Garage (3+ Cars)", "Guest House / ADU", "Home Cinema", "Modern Outdoor Living"
 ];
+
+const STEPS = ["Property details", "Specifications", "Rent & contact"];
 
 export default function ListPropertyPage() {
   const [registrationCode, setRegistrationCode] = useState("");
@@ -25,12 +23,12 @@ export default function ListPropertyPage() {
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("Single Family");
   const [description, setDescription] = useState("");
-  
+
   const [beds, setBeds] = useState(3);
   const [baths, setBaths] = useState(2.5);
   const [size, setSize] = useState(3500);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
-  
+
   const [price, setPrice] = useState(4500);
   const [ownerName, setOwnerName] = useState("");
   const [ownerEmail, setOwnerEmail] = useState("");
@@ -39,9 +37,9 @@ export default function ListPropertyPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toggleAmenity = (amenity: string) => {
-    setSelectedAmenities(prev => 
-      prev.includes(amenity) 
-        ? prev.filter(a => a !== amenity) 
+    setSelectedAmenities(prev =>
+      prev.includes(amenity)
+        ? prev.filter(a => a !== amenity)
         : [...prev, amenity]
     );
   };
@@ -55,7 +53,7 @@ export default function ListPropertyPage() {
       alert("Please fill in your contact information and select an inspection date.");
       return;
     }
-    
+
     if (step === 3) {
       setIsSubmitting(true);
       try {
@@ -88,7 +86,7 @@ export default function ListPropertyPage() {
         if (!res.ok) {
           throw new Error("Failed to submit to CRM");
         }
-        
+
         setRegistrationCode(`ABD-${Math.floor(10000 + Math.random() * 90000)}`);
         setStep(prev => prev + 1);
       } catch (error) {
@@ -106,375 +104,267 @@ export default function ListPropertyPage() {
     setStep(prev => Math.max(prev - 1, 1));
   };
 
+  const stepMotion = {
+    initial: { opacity: 0, y: 12 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -12 },
+    transition: { duration: 0.35 },
+  };
+
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-24 font-sans bg-white">
-      {/* Wizard Header */}
-      <div className="pt-2 pb-6 md:pt-16 md:pb-12 text-center max-w-3xl mx-auto">
-        <span className="text-secondary font-bold tracking-[0.2em] text-[11px] md:text-xs uppercase mb-2 md:mb-4 block">
-          For Charlotte Property Owners & Investors
-        </span>
-        <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-[4.75rem] font-heading font-bold text-primary mb-3 md:mb-6 leading-tight">
-          Request Your Free Rental Analysis
-        </h1>
-        <p className="text-slate-600 font-normal text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
-          Submit your property profile below to begin our detailed market audit and receive a customized management assessment.
-        </p>
-      </div>
+    <div className="mx-auto grid w-full max-w-[1320px] gap-12 px-5 pt-10 pb-24 md:px-10 md:pt-16 lg:grid-cols-12 lg:gap-16">
+      {/* Intro + step rail */}
+      <aside className="lg:col-span-4">
+        <div className="lg:sticky lg:top-32">
+          <p className="eyebrow">For Charlotte owners & investors</p>
+          <h1 className="display mt-6 text-5xl md:text-6xl">
+            Your free <span className="italic text-brand">rental analysis.</span>
+          </h1>
+          <p className="mt-6 leading-relaxed text-muted">
+            Tell us about your property. We&apos;ll run a market review and come back with a tailored management assessment within 24 hours.
+          </p>
 
-      {/* Progress Bar */}
-      {step <= 3 && (
-        <div className="mb-6 md:mb-12 max-w-3xl mx-auto">
-          <div className="flex justify-between items-center text-[10px] font-bold tracking-widest text-slate-500 mb-4">
-            <span className={step >= 1 ? "text-primary" : ""}>01. PROPERTY DETAILS</span>
-            <span className={step >= 2 ? "text-primary" : ""}>02. SPECIFICATIONS</span>
-            <span className={step >= 3 ? "text-primary" : ""}>03. PORTFOLIO & AUDIT</span>
-          </div>
-          <div className="h-[2px] bg-slate-100 w-full rounded-full overflow-hidden relative">
-            <motion.div 
-              className="absolute left-0 top-0 bottom-0 bg-secondary" 
-              animate={{ width: `${(step / 3) * 100}%` }}
-              transition={{ duration: 0.4 }}
-            />
-          </div>
+          {step <= 3 && (
+            <ol className="mt-10 hidden border-t border-line lg:block">
+              {STEPS.map((s, i) => {
+                const n = i + 1;
+                return (
+                  <li key={s} className="flex items-center gap-4 border-b border-line py-4 text-sm">
+                    <span
+                      className={`flex h-7 w-7 items-center justify-center rounded-full border text-xs ${
+                        n < step ? "border-ink bg-ink text-paper" : n === step ? "border-brand bg-brand text-ink" : "text-muted"
+                      }`}
+                    >
+                      {n < step ? <Check className="h-3.5 w-3.5" /> : n}
+                    </span>
+                    <span className={n === step ? "font-semibold" : "text-muted"}>{s}</span>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
         </div>
-      )}
+      </aside>
 
-      {/* Form Steps */}
-      <form onSubmit={(e) => { e.preventDefault(); handleNext(); }} className="glass-card rounded-[3rem] p-10 md:p-16 border border-slate-100 shadow-2xl relative overflow-hidden bg-white max-w-3xl mx-auto">
+      <form
+        onSubmit={(e) => { e.preventDefault(); handleNext(); }}
+        className="rounded-sm bg-white/60 p-6 ring-1 ring-line sm:p-10 md:p-14 lg:col-span-8"
+      >
         <input type="hidden" name="property_type" value={category} />
         <input type="hidden" name="amenities" value={selectedAmenities.join(", ")} />
+
+        {step <= 3 && (
+          <div className="mb-10 lg:hidden">
+            <p className="label">Step {step} of 3 · {STEPS[step - 1]}</p>
+            <div className="mt-3 h-px w-full bg-line">
+              <motion.div className="h-px bg-ink" animate={{ width: `${(step / 3) * 100}%` }} />
+            </div>
+          </div>
+        )}
+
         <AnimatePresence mode="wait">
           {step === 1 && (
-            <motion.div
-              key="step1"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              className="space-y-8"
-            >
-              <h2 className="text-2xl font-heading font-bold text-primary flex items-center gap-3 border-b border-slate-100 pb-4">
-                <Building2 className="w-6 h-6 text-secondary" /> Residence Details
-              </h2>
-              
-              {/* Title */}
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Property Nickname / Title</label>
-                <input
-                  type="text"
-                  name="property_title"
-                  placeholder="e.g., The Myers Park Manor"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
-                />
-              </div>
+            <motion.div key="step1" {...stepMotion} className="space-y-10">
+              <h2 className="font-serif text-3xl">Property details</h2>
 
-              {/* Location */}
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Property Address</label>
-                <div className="relative">
-                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                  <input
-                    type="text"
-                    name="property_address"
-                    placeholder="e.g., 2200 Queens Rd W, Charlotte, NC 28207"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
-                  />
-                </div>
-              </div>
+              <label className="block">
+                <span className="label">Property nickname</span>
+                <input type="text" name="property_title" placeholder="e.g. The Myers Park house" value={title} onChange={(e) => setTitle(e.target.value)} className="field" />
+              </label>
 
-              {/* Category */}
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Property Type</label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <label className="block">
+                <span className="label">Property address</span>
+                <input type="text" name="property_address" autoComplete="street-address" placeholder="e.g. 2200 Queens Rd W, Charlotte, NC 28207" value={location} onChange={(e) => setLocation(e.target.value)} className="field" />
+              </label>
+
+              <fieldset>
+                <legend className="label">Property type</legend>
+                <div className="mt-4 flex flex-wrap gap-2.5">
                   {CATEGORIES.map((cat) => (
                     <button
                       key={cat}
                       type="button"
+                      aria-pressed={category === cat}
                       onClick={() => setCategory(cat)}
-                      className={`py-3 px-4 rounded-xl border text-xs font-semibold tracking-wide transition-all cursor-pointer ${
-                        category === cat
-                          ? "bg-[#0F172A] border-[#0F172A] text-white shadow-md"
-                          : "bg-slate-50 border-slate-300 text-slate-700 hover:bg-slate-100"
+                      className={`cursor-pointer rounded-full border px-4 py-2.5 text-sm transition-colors ${
+                        category === cat ? "border-ink bg-ink text-paper" : "border-line hover:border-ink"
                       }`}
                     >
                       {cat}
                     </button>
                   ))}
                 </div>
-              </div>
+              </fieldset>
 
-              {/* Description */}
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Brief Property Description</label>
+              <label className="block">
+                <span className="label">Brief description</span>
                 <textarea
                   name="property_description"
                   rows={4}
-                  placeholder="Outline key architectural highlights, target rent goals, current tenancy status, and any upgrades..."
+                  placeholder="Highlights, target rent, current tenancy status, recent upgrades…"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 resize-none transition-colors"
+                  className="field resize-none"
                 />
-              </div>
+              </label>
             </motion.div>
           )}
 
           {step === 2 && (
-            <motion.div
-              key="step2"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              className="space-y-8"
-            >
-              <h2 className="text-2xl font-heading font-bold text-primary flex items-center gap-3 border-b border-slate-100 pb-4">
-                <ListPlus className="w-6 h-6 text-secondary" /> Residence Specifications
-              </h2>
+            <motion.div key="step2" {...stepMotion} className="space-y-10">
+              <h2 className="font-serif text-3xl">Specifications</h2>
 
-              {/* Grid of Beds, Baths, Sq ft */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Bedrooms</label>
-                  <input
-                    type="number"
-                    name="bedrooms"
-                    min="1"
-                    value={beds}
-                    onChange={(e) => setBeds(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-semibold focus:outline-none text-center transition-colors"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Bathrooms</label>
-                  <input
-                    type="number"
-                    name="bathrooms"
-                    min="1"
-                    step="0.5"
-                    value={baths}
-                    onChange={(e) => setBaths(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-semibold focus:outline-none text-center transition-colors"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Size (Sq Ft)</label>
-                  <input
-                    type="number"
-                    name="square_footage"
-                    min="500"
-                    step="100"
-                    value={size}
-                    onChange={(e) => setSize(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-semibold focus:outline-none text-center transition-colors"
-                  />
-                </div>
+              <div className="grid grid-cols-3 gap-6">
+                <label className="block">
+                  <span className="label">Bedrooms</span>
+                  <input type="number" name="bedrooms" min="1" value={beds} onChange={(e) => setBeds(Number(e.target.value))} className="field font-serif text-2xl" />
+                </label>
+                <label className="block">
+                  <span className="label">Bathrooms</span>
+                  <input type="number" name="bathrooms" min="1" step="0.5" value={baths} onChange={(e) => setBaths(Number(e.target.value))} className="field font-serif text-2xl" />
+                </label>
+                <label className="block">
+                  <span className="label">Sq ft</span>
+                  <input type="number" name="square_footage" min="500" step="100" value={size} onChange={(e) => setSize(Number(e.target.value))} className="field font-serif text-2xl" />
+                </label>
               </div>
 
-              {/* Amenities Grid */}
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Amenities & Infrastructure</label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <fieldset>
+                <legend className="label">Amenities</legend>
+                <div className="mt-4 grid gap-x-6 sm:grid-cols-2">
                   {AMENITIES_OPTIONS.map((amenity) => {
                     const isSelected = selectedAmenities.includes(amenity);
                     return (
                       <button
                         key={amenity}
                         type="button"
+                        aria-pressed={isSelected}
                         onClick={() => toggleAmenity(amenity)}
-                        className={`flex items-center gap-4 py-4 px-5 rounded-xl border text-left text-sm transition-all cursor-pointer ${
-                          isSelected
-                            ? "bg-slate-50 border-secondary text-primary"
-                            : "bg-white border-slate-200 text-slate-500 hover:bg-slate-50/50"
-                        }`}
+                        className="flex cursor-pointer items-center gap-3 border-b border-line py-3.5 text-left text-sm"
                       >
-                        <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all ${
-                          isSelected ? "bg-secondary border-secondary text-white" : "border-slate-300 bg-transparent"
-                        }`}>
-                          {isSelected && <Check className="w-3.5 h-3.5" />}
-                        </div>
-                        <span className="font-light">{amenity}</span>
+                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border transition-colors ${isSelected ? "border-ink bg-ink text-paper" : "border-line"}`}>
+                          {isSelected && <Check className="h-3.5 w-3.5" />}
+                        </span>
+                        <span className={isSelected ? "" : "text-muted"}>{amenity}</span>
                       </button>
                     );
                   })}
                 </div>
-              </div>
+              </fieldset>
             </motion.div>
           )}
 
           {step === 3 && (
-            <motion.div
-              key="step3"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              className="space-y-8"
-            >
-              <h2 className="text-2xl font-heading font-bold text-primary flex items-center gap-3 border-b border-slate-100 pb-4">
-                <ShieldCheck className="w-6 h-6 text-secondary" /> Portfolio Audit Setup
-              </h2>
+            <motion.div key="step3" {...stepMotion} className="space-y-10">
+              <h2 className="font-serif text-3xl">Rent & contact</h2>
 
-              {/* Price Slider */}
-              <div className="flex flex-col gap-3">
-                <div className="flex justify-between items-baseline">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Target Monthly Rent (USD)</label>
-                  <div className="relative flex items-center">
-                    <span className="text-2xl font-heading font-extrabold text-primary absolute left-0">$</span>
-                    <input 
+              <div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="label">Target monthly rent</span>
+                  <label className="flex items-baseline font-serif text-4xl">
+                    <span className="sr-only">Target monthly rent in USD</span>$
+                    <input
                       type="number"
                       name="target_rent"
                       min="500"
                       value={price || ""}
                       onChange={(e) => setPrice(Number(e.target.value))}
-                      className="text-2xl font-heading font-extrabold text-primary bg-transparent w-32 pl-5 text-right focus:outline-none"
+                      className="w-36 bg-transparent text-right focus:outline-none"
                     />
-                  </div>
+                  </label>
                 </div>
                 <input
                   type="range"
+                  aria-label="Target monthly rent"
                   min="500"
                   max="30000"
                   step="50"
                   value={price}
                   onChange={(e) => setPrice(Number(e.target.value))}
-                  className="w-full accent-secondary bg-slate-200 h-1.5 rounded-full cursor-pointer"
+                  className="mt-4 w-full cursor-pointer accent-ink"
                 />
-                <div className="flex justify-between text-[10px] text-slate-400 font-bold tracking-wider">
+                <div className="mt-1 flex justify-between text-xs text-muted">
                   <span>$500</span>
-                  <span>$15,000</span>
                   <span>$30,000+</span>
                 </div>
               </div>
 
-              {/* Owner Info */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Investor Full Name</label>
-                  <input
-                    type="text"
-                    name="full_name"
-                    placeholder="e.g. Richard Branson"
-                    value={ownerName}
-                    onChange={(e) => setOwnerName(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl px-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Contact Email</label>
-                  <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="e.g. owner@portfolio.com"
-                      value={ownerEmail}
-                      onChange={(e) => setOwnerEmail(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
-                    />
-                  </div>
-                </div>
-                {/* Contact Phone */}
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Contact Phone</label>
-                  <div className="relative">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="e.g. +1 704 555 0101"
-                      value={ownerPhone}
-                      onChange={(e) => setOwnerPhone(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none placeholder:text-slate-500 transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Inspection Date picker */}
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-700">Preferred On-Site Audit Date</label>
-                  <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
-                    <input
-                      type="date"
-                      name="inspection_date"
-                      value={inspectionDate}
-                      onChange={(e) => setInspectionDate(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-300 focus:border-secondary focus:bg-white rounded-2xl pl-12 pr-5 py-4 text-sm text-slate-900 font-medium focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
+              <div className="grid gap-8 sm:grid-cols-2">
+                <label className="block">
+                  <span className="label">Full name</span>
+                  <input type="text" name="full_name" autoComplete="name" placeholder="Your name" value={ownerName} onChange={(e) => setOwnerName(e.target.value)} className="field" />
+                </label>
+                <label className="block">
+                  <span className="label">Email</span>
+                  <input type="email" name="email" autoComplete="email" placeholder="you@example.com" value={ownerEmail} onChange={(e) => setOwnerEmail(e.target.value)} className="field" />
+                </label>
+                <label className="block">
+                  <span className="label">Phone</span>
+                  <input type="tel" name="phone" autoComplete="tel" placeholder="+1 704 555 0101" value={ownerPhone} onChange={(e) => setOwnerPhone(e.target.value)} className="field" />
+                </label>
+                <label className="block">
+                  <span className="label">Preferred walk-through date</span>
+                  <input type="date" name="inspection_date" value={inspectionDate} onChange={(e) => setInspectionDate(e.target.value)} className="field" />
+                </label>
               </div>
-              <p className="text-[11px] text-slate-600 leading-relaxed font-normal mt-1">
-                * A physical walk-through is scheduled prior to finalize our portfolio onboarding and property safety verification.
+              <p className="text-sm leading-relaxed text-muted">
+                We schedule a short on-site walk-through before onboarding to verify the property&apos;s condition and safety.
               </p>
             </motion.div>
           )}
 
           {step === 4 && (
-            <motion.div
-              key="step4"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-8 flex flex-col items-center gap-8"
-            >
-              <div className="w-24 h-24 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-500">
-                <CheckCircle2 className="w-14 h-14 animate-bounce" />
-              </div>
-              
-              <div>
-                <h2 className="text-3xl font-heading font-bold text-primary mb-3">Portfolio Submission Received</h2>
-                <p className="text-sm text-slate-500 font-light max-w-md mx-auto leading-relaxed">
-                  Thank you, <span className="font-semibold text-primary">{ownerName}</span>. Your application for <span className="font-semibold text-primary">{title}</span> has been logged under our Charlotte onboarding team.
-                </p>
-              </div>
-
-              <div className="bg-slate-50/50 border border-slate-100 rounded-3xl p-6 text-left text-xs font-light space-y-3.5 max-w-md w-full shadow-inner">
-                <div className="flex justify-between border-b border-slate-200/50 pb-3">
-                  <span className="text-slate-400 font-bold uppercase tracking-wider text-[9px]">Dossier Reference Code</span>
-                  <span className="font-mono font-semibold text-primary">{registrationCode}</span>
-                </div>
-                <p><span className="text-slate-400 font-medium">Property Address:</span> {location}</p>
-                <p><span className="text-slate-400 font-medium">Category Type:</span> {category}</p>
-                <p><span className="text-slate-400 font-medium">Target Rent Goal:</span> ${price.toLocaleString()} / mo</p>
-                <p><span className="text-slate-400 font-medium">Proposed Audit Date:</span> {inspectionDate}</p>
-              </div>
-
-              <p className="text-xs text-slate-400 leading-relaxed font-light max-w-sm">
-                Our property underwriting team will perform a desk rent analysis and contact you within 24 hours to confirm the audit scheduled on {inspectionDate}.
+            <motion.div key="step4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="py-6">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand text-ink">
+                <Check className="h-7 w-7" />
+              </span>
+              <h2 className="display mt-8 text-5xl">Request received.</h2>
+              <p className="mt-4 max-w-lg leading-relaxed text-muted">
+                Thank you, <span className="font-semibold text-ink">{ownerName}</span>. Your request for{" "}
+                <span className="font-semibold text-ink">{title}</span> is with our Charlotte onboarding team.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mt-6">
-                <Link href="/" className="flex-1">
-                  <Button className="w-full">Return Home</Button>
-                </Link>
-              </div>
+              <dl className="mt-10 max-w-lg divide-y divide-line border-y border-line text-sm">
+                {[
+                  ["Reference", registrationCode],
+                  ["Address", location],
+                  ["Type", category],
+                  ["Target rent", `$${price.toLocaleString()} / mo`],
+                  ["Walk-through", inspectionDate],
+                ].map(([k, v]) => (
+                  <div key={k} className="flex justify-between gap-6 py-3">
+                    <dt className="text-muted">{k}</dt>
+                    <dd className={`text-right ${k === "Reference" ? "font-mono font-semibold" : ""}`}>{v}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-8 max-w-lg text-sm leading-relaxed text-muted">
+                We&apos;ll complete a desk rent analysis and contact you within 24 hours to confirm the walk-through on {inspectionDate}.
+              </p>
+              <Link href="/" className={`${buttonStyles()} mt-8`}>
+                Back to home
+              </Link>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Wizard Controls */}
         {step <= 3 && (
-          <div className="flex justify-between mt-12 pt-6 border-t border-slate-100">
-            <Button
+          <div className="mt-14 flex items-center justify-between border-t border-line pt-8">
+            <button
               type="button"
-              variant="ghost"
-              size="md"
               onClick={handleBack}
               disabled={step === 1}
-              className={`flex items-center gap-2 border-slate-300 text-slate-700 hover:bg-slate-100 ${step === 1 ? "opacity-30 pointer-events-none" : ""}`}
+              className="inline-flex cursor-pointer items-center gap-2 text-sm font-semibold disabled:invisible"
             >
-              <ChevronLeft className="w-4 h-4" /> Back
-            </Button>
-            
+              <ArrowLeft className="h-4 w-4" /> Back
+            </button>
             <Button
               type={step === 3 ? "submit" : "button"}
-              variant="primary"
-              size="md"
               onClick={step === 3 ? undefined : handleNext}
               isLoading={isSubmitting}
             >
-              {step === 3 ? "Submit Onboarding Dossier" : "Continue"}
+              {step === 3 ? "Send request" : "Continue"} <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
         )}

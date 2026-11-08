@@ -1,724 +1,245 @@
-"use client";
-
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, animate } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { 
-  ArrowRight, 
-  Shield, 
-  Star, 
-  TrendingUp, 
-  FileText,
-  UserCheck,
-  Wrench,
-  MessageSquare,
-  Home as HomeIcon,
-  Clock,
-  CheckCircle2
-} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { buttonStyles } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 
+const unsplash = (id: string, w = 1200) => `https://images.unsplash.com/photo-${id}?q=80&w=${w}&auto=format&fit=crop`;
 
-// High-Performance Animated Counter updating DOM directly to avoid re-renders
-function AnimatedCounter({ value, duration = 2 }: { value: string; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+const promises = ["Professional management", "Fast response", "Transparent reporting", "Licensed & insured"];
 
-  useEffect(() => {
-    if (!isInView || !ref.current) return;
-    
-    const match = value.match(/([0-9.]+)/);
-    if (!match) {
-      ref.current.textContent = value;
-      return;
-    }
-    
-    const target = parseFloat(match[1]);
-    const decimals = match[1].includes(".") ? 1 : 0;
-    const currentRef = ref.current;
-    
-    const controls = animate(0, target, {
-      duration,
-      ease: [0.22, 1, 0.36, 1],
-      onUpdate: (latest) => {
-        if (!currentRef) return;
-        
-        let formatted = "";
-        if (value.startsWith("$")) {
-          formatted = `$${latest.toFixed(0)}${value.replace(/[^M+]/g, "")}`;
-        } else if (value.startsWith("0") && value.length === 2) {
-          formatted = `0${latest.toFixed(0)}`;
-        } else if (value.endsWith("+")) {
-          formatted = `${latest.toFixed(0)}+`;
-        } else if (value.endsWith("%")) {
-          formatted = `${latest.toFixed(0)}%`;
-        } else if (value.includes("/5")) {
-          formatted = `${latest.toFixed(decimals)}/5`;
-        } else {
-          formatted = latest.toFixed(decimals);
-        }
-        
-        currentRef.textContent = formatted;
-      }
-    });
-    
-    return () => controls.stop();
-  }, [isInView, value, duration]);
+const benefits = [
+  { title: "Hands-off ownership", desc: "We handle the day-to-day so your rental becomes true passive income." },
+  { title: "Better tenants", desc: "Rigorous screening means reliable residents and lower turnover." },
+  { title: "Transparent reporting", desc: "Monthly statements and real-time insight keep you in control." },
+  { title: "Local market expertise", desc: "Data-driven pricing and strategy to maximise rental income." },
+];
 
-  return <span ref={ref}>0</span>;
-}
+const services = [
+  { title: "Tenant placement", desc: "Marketing, showings, screening and leases — handled start to finish." },
+  { title: "Rent collection", desc: "On-time collection, online payments and prompt owner disbursements." },
+  { title: "Maintenance", desc: "24/7 maintenance coordination with trusted, vetted local vendors." },
+  { title: "Financial reporting", desc: "Detailed monthly reports, so you always know your numbers." },
+  { title: "Legal compliance", desc: "Stay compliant with fair-housing law and lease regulations." },
+];
 
-// 3D Tilt Card for "Why Choose Us" section
-function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+const steps = [
+  { title: "Consultation", desc: "We learn your goals and evaluate your property." },
+  { title: "Onboarding", desc: "We handle the paperwork and set everything up." },
+  { title: "Tenant placement", desc: "We market your home and place qualified tenants." },
+  { title: "Ongoing management", desc: "We run the day-to-day while you enjoy the returns." },
+];
 
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [5, -5]), { damping: 25, stiffness: 180 });
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-5, 5]), { damping: 25, stiffness: 180 });
-
-  function handleMouseMove(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = event.clientX - rect.left - width / 2;
-    const mouseY = event.clientY - rect.top - height / 2;
-    x.set(mouseX / width);
-    y.set(mouseY / height);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
-  return (
-    <motion.div
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-// Glow Glass Card for "Our Services"
-function GlowGlassCard({ children, className }: { children: React.ReactNode; className?: string }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
-  return (
-    <motion.div
-      onMouseMove={handleMouseMove}
-      className={`relative overflow-hidden group ${className}`}
-    >
-      {/* Liquid glass light sweep animation */}
-      <motion.div
-        className="absolute top-0 bottom-0 w-[150%] -skew-x-12 z-0 pointer-events-none"
-        style={{
-          background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
-        }}
-        animate={{
-          left: ["-150%", "200%"]
-        }}
-        transition={{
-          repeat: Infinity,
-          repeatDelay: 5,
-          duration: 2.5,
-          ease: "easeInOut"
-        }}
-      />
-
-      {/* Background glow follows cursor */}
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 z-0"
-        style={{
-          background: useTransform(
-            [mouseX, mouseY],
-            ([x, y]) => `radial-gradient(140px circle at ${x}px ${y}px, rgba(217, 119, 69, 0.25), transparent 80%)`
-          ),
-        }}
-      />
-      {children}
-    </motion.div>
-  );
-}
-
-// Carousel Container for Services & Markets
-function InteractiveCarousel({ children, className }: { children: React.ReactNode; className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    setIsDragging(true);
-    startX.current = e.pageX - containerRef.current.offsetLeft;
-    scrollLeft.current = containerRef.current.scrollLeft;
-  };
-
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !containerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5;
-    containerRef.current.scrollLeft = scrollLeft.current - walk;
-  };
-
-  const scroll = (direction: "left" | "right") => {
-    if (containerRef.current) {
-      const offset = direction === "left" ? -350 : 350;
-      containerRef.current.scrollTo({
-        left: containerRef.current.scrollLeft + offset,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  return (
-    <div className="relative w-full">
-      <div
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onMouseLeave={handleMouseLeave}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        className={`flex gap-6 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory ${
-          isDragging ? "cursor-grabbing select-none" : "cursor-grab"
-        } ${className}`}
-        style={{
-          msOverflowStyle: "none",
-          scrollbarWidth: "none",
-        }}
-      >
-        {children}
-      </div>
-      
-      {/* Navigation Arrows */}
-      <div className="flex justify-end gap-2 mt-8">
-        <button
-          onClick={() => scroll("left")}
-          className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white transition-all duration-300 bg-white/5 backdrop-blur-sm cursor-pointer hover:scale-105 active:scale-95"
-        >
-          <span className="text-sm">❮</span>
-        </button>
-        <button
-          onClick={() => scroll("right")}
-          className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white transition-all duration-300 bg-white/5 backdrop-blur-sm cursor-pointer hover:scale-105 active:scale-95"
-        >
-          <span className="text-sm">❯</span>
-        </button>
-      </div>
-    </div>
-  );
-}
+const markets = [
+  { name: "Concord", img: "1600585154340-be6161a56a0c" },
+  { name: "Huntersville", img: "1600607687920-4e2a09cf159d" },
+  { name: "Matthews", img: "1602941525421-8f8b81d3edbb" },
+  { name: "Gastonia", img: "1512917774080-9991f1c4c750" },
+];
 
 export default function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const processRef = useRef<HTMLDivElement>(null);
-  const marketsSectionRef = useRef<HTMLDivElement>(null);
-
-  // Hero Image Scroll Parallax
-  const { scrollYProgress: heroScrollProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-  const heroBgY = useTransform(heroScrollProgress, [0, 1], ["0%", "30%"]);
-
-  // Process timeline Scroll Progress
-  const { scrollYProgress: processScroll } = useScroll({
-    target: processRef,
-    offset: ["start center", "end center"]
-  });
-  const processScaleX = useSpring(processScroll, { stiffness: 100, damping: 30 });
-
-  // Markets Section Scroll Parallax (GSAP-like scroll translation)
-  const { scrollYProgress: marketsScroll } = useScroll({
-    target: marketsSectionRef,
-    offset: ["start end", "end start"]
-  });
-  const marketsX = useTransform(marketsScroll, [0, 1], ["5%", "-15%"]);
-  const marketsImgY = useTransform(marketsScroll, [0, 1], ["-10%", "10%"]);
-
   return (
-    <div className="flex flex-col gap-0 pb-8 font-sans bg-white overflow-hidden -mt-32">
-      {/* Hero Section */}
-      <section 
-        ref={heroRef}
-        className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-between px-5 md:px-12 pt-24 md:pt-32 pb-8 bg-[#071321] text-white overflow-hidden"
-      >
-        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-          <motion.div style={{ y: heroBgY, scale: 1.1 }} className="relative w-full h-full">
-            <Image
-              src="/hero-house.png"
-              alt="Luxury Architecture"
-              fill
-              unoptimized
-              className="object-cover object-[75%_center] sm:object-[80%_center] md:object-top opacity-95 select-none pointer-events-none"
-              priority
-              sizes="(max-width: 768px) 100vw, 100vw"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#071321] via-[#071321]/80 sm:via-[#071321]/60 to-[#071321]/20 z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071321] via-[#071321]/30 md:via-transparent to-transparent z-10" />
-        </div>
-
-        <div className="z-20 max-w-7xl w-full mx-auto flex-1 flex flex-col justify-center items-start text-left py-8 md:py-12">
-          {/* Badge Reveal */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-2 border border-white/20 bg-slate-950/40 backdrop-blur-md px-3.5 py-1.5 rounded-full mb-4 md:mb-6 self-start"
-          >
-            <Star className="w-3.5 h-3.5 text-[#D97745] fill-none stroke-[2.5]" />
-            <span className="text-white text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase font-sans">
-              Full-Service Property Management
-            </span>
-          </motion.div>
-
-          {/* Official Hero Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[6.75rem] font-heading font-normal tracking-tight leading-[1.08] md:leading-[1.02] text-white mb-6 md:mb-8 font-serif max-w-5xl text-left">
-            <span className="block overflow-hidden pb-1">
-              <motion.span
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-                className="block"
-              >
-                Your Property.
-              </motion.span>
-            </span>
-            <span className="block overflow-hidden pb-1">
-              <motion.span
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-                className="block"
-              >
-                <span className="text-[#D97745]">Better Managed.</span>
-              </motion.span>
-            </span>
-          </h1>
-
-          {/* Value Proposition Subheading */}
-          <motion.p
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.45 }}
-            className="text-slate-300 text-base sm:text-lg md:text-xl mb-10 max-w-[48rem] font-light leading-relaxed text-left"
-          >
-            From tenant placement and rent collection to maintenance and financial reporting, we manage every detail so you can enjoy stress-free ownership and stronger returns.
-          </motion.p>
-          
-          {/* CTA & Trust Hierarchy */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
-            className="flex flex-col items-start w-full gap-8 mt-2"
-          >
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 w-full sm:w-auto">
-              <Link href="/list-property" className="w-full sm:w-auto block">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto min-h-[54px] px-9 text-base shadow-xl shadow-[#D97745]/30">
-                  Get Free Rental Analysis <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
-                </Button>
+    <>
+      {/* Hero */}
+      <section className="mx-auto w-full max-w-[1320px] px-5 pt-10 md:px-10 md:pt-16">
+        <div className="grid items-end gap-10 lg:grid-cols-12">
+          <Reveal className="lg:col-span-7">
+            <p className="eyebrow">Property management · Charlotte, NC</p>
+            <h1 className="display mt-8 text-[3.4rem] sm:text-7xl lg:text-[7.5rem]">
+              Your property.
+              <br />
+              <span className="italic text-brand">Better managed.</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.15} className="lg:col-span-5 lg:pb-4">
+            <p className="max-w-md text-lg leading-relaxed text-muted">
+              From tenant placement and rent collection to maintenance and financial reporting, we manage every detail —
+              so you enjoy stress-free ownership and stronger returns.
+            </p>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <Link href="/list-property" className={buttonStyles({ size: "lg" })}>
+                Get a free rental analysis <ArrowRight className="h-5 w-5" />
               </Link>
-              
-              <Link href="/#services" className="w-full sm:w-auto block">
-                <Button variant="ghost" size="lg" className="w-full sm:w-auto min-h-[54px] px-8 text-base">
-                  Explore Services
-                </Button>
+              <Link href="/#services" className="group inline-flex items-center gap-2 px-2 py-3 text-sm font-semibold">
+                See what we handle
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
-
-            {/* Premium Trust Indicators */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
-              className="flex flex-wrap items-center gap-4 sm:gap-7 text-xs sm:text-sm text-slate-300 font-normal pt-3"
-            >
-              <div className="flex items-center text-[#D97745] gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
-                ))}
-              </div>
-              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-[#D97745]" />
-                <span>Professional Management</span>
-              </div>
-              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#D97745]" />
-                <span>Fast Response</span>
-              </div>
-              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
-              <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-[#D97745]" />
-                <span>Transparent Reporting</span>
-              </div>
-              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-white/20" />
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#D97745]" />
-                <span>Licensed & Insured</span>
-              </div>
-            </motion.div>
-          </motion.div>
+          </Reveal>
         </div>
 
-
-        {/* Scroll to Discover */}
-        <div className="flex flex-col items-center gap-3 text-center w-full z-20 mt-6 mb-2">
-          <span className="text-[10px] font-semibold tracking-[0.3em] text-[#C5CCD6] uppercase font-sans">
-            Scroll to Discover
-          </span>
-          <div className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-slate-300 hover:text-white hover:border-white transition-colors cursor-pointer">
-            <span className="text-[10px] font-bold">↓</span>
+        <Reveal delay={0.25} className="relative mt-12 aspect-[4/5] overflow-hidden rounded-sm sm:aspect-[16/9] md:mt-16 lg:aspect-[21/9]">
+          <Image
+            src="/hero-house.png"
+            alt="Modern home with warm interior lighting at dusk"
+            fill
+            priority
+            sizes="(max-width: 1320px) 100vw, 1320px"
+            className="object-cover object-[60%_center]"
+          />
+          <div className="absolute bottom-0 left-0 hidden bg-paper px-8 pt-6 pb-0 sm:block">
+            <p className="label">Now serving</p>
+            <p className="mt-1 font-serif text-2xl">North Carolina owners</p>
           </div>
-        </div>
-      </section>
+        </Reveal>
 
-      {/* Why Property Owners Choose Us Section */}
-      <section className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36">
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-6 mb-16">
-          <div className="max-w-xl text-left">
-            <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
-              Why Property Owners Choose Us
-            </span>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary leading-tight font-serif">
-              More than management.<br />It&apos;s peace of mind.
-            </h2>
-          </div>
-          <p className="text-slate-600 max-w-lg font-normal leading-relaxed text-sm md:text-base lg:mt-8 text-left">
-            We combine industry expertise, advanced technology, and exceptional service to protect your investment and maximize your returns.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              title: "Hands-Off Ownership",
-              desc: "We handle the day-to-day so you can enjoy true passive income.",
-              img: "1600210492486-724fe5c67fb0",
-              icon: UserCheck
-            },
-            {
-              title: "Better Tenants",
-              desc: "Rigorous screening ensures reliable tenants and lower turnover.",
-              img: "1564013799919-ab600027ffc6",
-              icon: Shield
-            },
-            {
-              title: "Transparent Reporting",
-              desc: "Real-time insights and monthly reports keep you in control.",
-              img: "1556911220-e15b29be8c8f",
-              icon: FileText
-            },
-            {
-              title: "Local Market Expertise",
-              desc: "Data-driven pricing and strategy to maximize your rental income.",
-              img: "1600607687920-4e2a09cf159d",
-              icon: TrendingUp
-            }
-          ].map((item, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+        <ul className="grid grid-cols-2 border-b border-line md:grid-cols-4">
+          {promises.map((p, i) => (
+            <li
+              key={p}
+              className={`flex items-center gap-3 py-6 text-sm font-medium ${i % 2 ? "pl-5" : ""} ${i > 0 ? "md:border-l md:pl-6" : ""} ${i % 2 ? "border-l" : ""} ${i > 1 ? "border-t md:border-t-0" : ""}`}
             >
-              <TiltCard className="bg-white border border-slate-100 rounded-3xl p-8 flex flex-col gap-6 hover:shadow-2xl transition-all duration-500 group cursor-pointer sweep-effect hover:-translate-y-[10px]">
-                <div className="w-10 h-10 rounded-full bg-[#0F172A] flex items-center justify-center text-white shrink-0 self-start transition-colors duration-300 group-hover:bg-secondary">
-                  <item.icon className="w-5 h-5 text-secondary group-hover:text-white transition-colors duration-300" />
-                </div>
-                <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden">
-                  <Image 
-                    src={`https://images.unsplash.com/photo-${item.img}?q=80&w=600&auto=format&fit=crop`}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-[800ms] group-hover:scale-108"
-                  />
-                </div>
-                <div className="flex flex-col text-left">
-                  <h3 className="text-lg font-bold text-[#0F172A] mb-2 leading-tight">{item.title}</h3>
-                  <p className="text-slate-600 text-xs font-normal leading-relaxed">{item.desc}</p>
-                </div>
-              </TiltCard>
-            </motion.div>
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
+              {p}
+            </li>
           ))}
+        </ul>
+      </section>
+
+      {/* Why owners choose us */}
+      <section className="mx-auto w-full max-w-[1320px] px-5 py-24 md:px-10 md:py-36">
+        <div className="grid gap-14 lg:grid-cols-12">
+          <Reveal className="lg:col-span-5">
+            <p className="eyebrow">Why owners choose us</p>
+            <h2 className="display mt-6 text-5xl md:text-6xl">
+              More than management.
+              <br />
+              <span className="italic">It&apos;s peace of mind.</span>
+            </h2>
+            <div className="relative mt-10 hidden aspect-[4/5] overflow-hidden rounded-sm lg:block">
+              <Image src={unsplash("1600210492486-724fe5c67fb0", 900)} alt="Bright, well-kept living room" fill sizes="40vw" className="object-cover" />
+            </div>
+          </Reveal>
+
+          <ol className="lg:col-span-6 lg:col-start-7">
+            {benefits.map((b, i) => (
+              <Reveal key={b.title} delay={i * 0.08}>
+                <li className="grid grid-cols-[3.5rem_1fr] gap-4 border-t border-line py-9 last:border-b md:grid-cols-[5rem_1fr]">
+                  <span className="font-serif text-lg text-brand-deep">0{i + 1}</span>
+                  <div>
+                    <h3 className="font-serif text-3xl tracking-tight">{b.title}</h3>
+                    <p className="mt-3 max-w-md leading-relaxed text-muted">{b.desc}</p>
+                  </div>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* Our Services Section */}
-      <section className="relative overflow-hidden bg-slate-50 text-primary py-24 md:py-36 px-6" id="services">
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
-            <div className="text-left">
-              <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-4 block">
-                Our Services
-              </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary max-w-2xl leading-tight">
-                Full-service property management, <span className="text-secondary font-light italic">simplified.</span>
+      {/* Services */}
+      <section id="services" className="scroll-mt-20 bg-ink text-paper">
+        <div className="mx-auto max-w-[1320px] px-5 py-24 md:px-10 md:py-36">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <Reveal className="lg:col-span-7">
+              <p className="eyebrow text-paper/60">Our services</p>
+              <h2 className="display mt-6 text-5xl md:text-7xl">
+                Full-service management,
+                <span className="italic text-brand"> simplified.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1} className="lg:col-span-4 lg:col-start-9">
+              <p className="leading-relaxed text-paper/65">
+                One team, one point of contact, every part of running a rental — so nothing falls between the cracks.
+              </p>
+            </Reveal>
+          </div>
+
+          <ul className="mt-16 md:mt-24">
+            {services.map((s, i) => (
+              <li key={s.title} className="group border-t border-paper/15 last:border-b">
+                <div className="grid gap-3 py-8 transition-colors md:grid-cols-12 md:items-center md:gap-8 md:py-10">
+                  <span className="font-serif text-sm text-paper/40 md:col-span-1">0{i + 1}</span>
+                  <h3 className="font-serif text-3xl tracking-tight transition-colors group-hover:text-brand md:col-span-5 md:text-5xl">
+                    {s.title}
+                  </h3>
+                  <p className="leading-relaxed text-paper/65 md:col-span-5">{s.desc}</p>
+                  <ArrowUpRight className="hidden h-6 w-6 justify-self-end text-paper/30 transition-all group-hover:-translate-y-1 group-hover:text-brand md:block" />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section id="process" className="mx-auto w-full max-w-[1320px] scroll-mt-20 px-5 py-24 md:px-10 md:py-36">
+        <Reveal className="max-w-3xl">
+          <p className="eyebrow">Our process</p>
+          <h2 className="display mt-6 text-5xl md:text-6xl">
+            A seamless experience, <span className="italic">start to finish.</span>
+          </h2>
+        </Reveal>
+
+        <ol className="mt-16 grid gap-px overflow-hidden rounded-sm bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((s, i) => (
+            <li key={s.title} className="bg-paper p-8 pt-10 transition-colors hover:bg-stone md:min-h-80">
+              <Reveal delay={i * 0.1} className="flex h-full flex-col">
+                <span className="display text-7xl text-brand">{i + 1}</span>
+                <h3 className="mt-auto pt-12 font-serif text-2xl">{s.title}</h3>
+                <p className="mt-3 leading-relaxed text-muted">{s.desc}</p>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Markets */}
+      <section id="markets" className="scroll-mt-20 bg-stone">
+        <div className="mx-auto max-w-[1320px] px-5 py-24 md:px-10 md:py-36">
+          <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <p className="eyebrow">Our markets</p>
+              <h2 className="display mt-6 max-w-2xl text-5xl md:text-6xl">
+                Proudly serving <span className="italic">Charlotte</span> and surrounding areas.
               </h2>
             </div>
-            <div className="flex items-center gap-4 shrink-0">
-            </div>
-          </div>
+          </Reveal>
 
-          <InteractiveCarousel className="py-12 px-4 -mx-4">
-            {[
-              {
-                title: "Tenant Placement",
-                desc: "We market your property, screen tenants, and handle leases from start to finish.",
-                icon: UserCheck
-              },
-              {
-                title: "Rent Collection",
-                desc: "Timely rent collection, online payments, and owner disbursements.",
-                icon: TrendingUp
-              },
-              {
-                title: "Maintenance",
-                desc: "24/7 maintenance coordination with trusted vendors.",
-                icon: Wrench
-              },
-              {
-                title: "Financial Reporting",
-                desc: "Detailed monthly reports so you always know your numbers.",
-                icon: FileText
-              },
-              {
-                title: "Legal Compliance",
-                desc: "Stay compliant with fair housing laws and lease regulations.",
-                icon: Shield
-              }
-            ].map((service, idx) => (
-              <GlowGlassCard
-                key={idx}
-                className="snap-start min-w-[300px] md:min-w-[340px] flex-1 bg-white rounded-3xl p-10 md:p-12 border border-slate-100 shadow-lg hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6 text-secondary group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
-                  <service.icon className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold font-heading text-primary mb-3 text-left">{service.title}</h3>
-                <p className="text-slate-600 text-sm font-normal leading-relaxed text-left">{service.desc}</p>
-              </GlowGlassCard>
+          <div className="mt-14 grid gap-4 md:grid-cols-12 md:gap-5">
+            <Reveal className="relative aspect-[4/5] overflow-hidden rounded-sm md:col-span-6 md:row-span-2 md:aspect-auto">
+              <Image src={unsplash("1568605114967-8130f3a36994", 1200)} alt="Home in Charlotte" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent" />
+              <div className="absolute bottom-0 p-7 text-paper">
+                <p className="label text-paper/70">Home base</p>
+                <p className="display mt-2 text-5xl md:text-6xl">Charlotte</p>
+              </div>
+            </Reveal>
+            {markets.map((m, i) => (
+              <Reveal key={m.name} delay={i * 0.08} className="group relative aspect-[4/3] overflow-hidden rounded-sm md:col-span-3">
+                <Image
+                  src={unsplash(m.img, 700)}
+                  alt={`Home in ${m.name}`}
+                  fill
+                  sizes="(min-width: 768px) 25vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent" />
+                <p className="absolute bottom-0 p-5 font-serif text-2xl text-paper">{m.name}</p>
+              </Reveal>
             ))}
-          </InteractiveCarousel>
+          </div>
         </div>
       </section>
 
-      {/* Our Process Section */}
-      <section ref={processRef} className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36 text-center">
-        <div className="mb-16">
-          <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
-            Our Process
-          </span>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary font-serif">
-            A seamless experience from start to finish.
+      {/* CTA */}
+      <section className="mx-auto w-full max-w-[1320px] px-5 py-24 md:px-10 md:py-36">
+        <Reveal className="grid gap-10 border-t border-ink pt-12 lg:grid-cols-12 lg:items-end">
+          <h2 className="display text-5xl md:text-7xl lg:col-span-8">
+            Stop managing properties.
+            <br />
+            <span className="italic text-brand">Start growing your portfolio.</span>
           </h2>
-        </div>
-
-        <div className="relative max-w-5xl mx-auto">
-          {/* Timeline progress line that fills on scroll */}
-          <div className="absolute top-[2.25rem] left-[12%] right-[12%] h-[2px] bg-slate-200 hidden md:block -z-10 overflow-hidden">
-            <motion.div
-              style={{ scaleX: processScaleX, originX: 0 }}
-              className="h-full bg-secondary w-full"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              {
-                num: "01",
-                title: "Consultation",
-                desc: "We learn about your goals and evaluate your property.",
-                icon: MessageSquare
-              },
-              {
-                num: "02",
-                title: "Onboarding",
-                desc: "We handle the paperwork and setup everything.",
-                icon: FileText
-              },
-              {
-                num: "03",
-                title: "Tenant Placement",
-                desc: "We market your property and place qualified tenants.",
-                icon: UserCheck
-              },
-              {
-                num: "04",
-                title: "Ongoing Management",
-                desc: "We manage everything while you enjoy the returns.",
-                icon: HomeIcon
-              }
-            ].map((step, idx) => {
-              return (
-                <div key={idx} className="flex flex-col items-center group relative">
-                  {/* Timeline Circle Node highlighting with zero state on viewport enter */}
-                  <motion.div
-                    initial={{ scale: 1, backgroundColor: "#0F172A", borderColor: "#e2e8f0" }}
-                    whileInView={{
-                      scale: 1.15,
-                      backgroundColor: "#D97745",
-                      borderColor: "#ffffff",
-                      boxShadow: "0 0 20px rgba(217, 119, 69, 0.6)",
-                    }}
-                    viewport={{ once: false, margin: "-20% 0px -40% 0px" }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-md border-4 mb-6 z-10 cursor-pointer"
-                  >
-                    {/* Render active icon based on step status */}
-                    <step.icon className="w-6 h-6 stroke-[2.5]" />
-                  </motion.div>
-                  
-                  {/* Step Content */}
-                  <span className="text-secondary font-bold text-base mb-1 block">
-                    <AnimatedCounter value={step.num} />
-                  </span>
-                  <h4 className="text-lg font-bold text-[#0F172A] mb-3 leading-tight transition-colors duration-300 group-hover:text-secondary">
-                    {step.title}
-                  </h4>
-                  <p className="text-slate-600 text-xs font-normal leading-relaxed max-w-[200px]">
-                    {step.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Markets Section */}
-      <section ref={marketsSectionRef} className="px-6 max-w-7xl mx-auto w-full py-24 md:py-36" id="markets">
-        <div className="flex flex-col md:flex-row justify-between items-baseline mb-12 gap-6">
-          <div className="text-left">
-            <span className="text-secondary font-bold tracking-[0.2em] text-xs uppercase mb-3 block">
-              Our Markets
-            </span>
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary font-serif max-w-xl">
-              Proudly serving Charlotte and surrounding areas.
-            </h2>
-          </div>
-        </div>
-
-        {/* GSAP-like horizontal scroll container */}
-        <div className="overflow-hidden py-4 w-full">
-          <motion.div 
-            style={{ x: marketsX }} 
-            className="flex gap-6 w-max px-6"
-          >
-            {[
-              { name: "Charlotte", img: "1568605114967-8130f3a36994" },
-              { name: "Concord", img: "1600585154340-be6161a56a0c" },
-              { name: "Huntersville", img: "1600607687920-4e2a09cf159d" },
-              { name: "Matthews", img: "1602941525421-8f8b81d3edbb" },
-              { name: "Gastonia", img: "1512917774080-9991f1c4c750" }
-            ].map((market, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -10 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="relative aspect-[3/4] w-[260px] md:w-[300px] rounded-2xl overflow-hidden group shadow-md hover:shadow-2xl cursor-pointer"
-              >
-                {/* Background image moves slightly slower than foreground */}
-                <motion.div 
-                  style={{ y: marketsImgY, scale: 1.25 }} 
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <Image
-                    src={`https://images.unsplash.com/photo-${market.img}?q=80&w=600&auto=format&fit=crop`}
-                    alt={market.name}
-                    fill
-                    className="object-cover transition-transform duration-700"
-                  />
-                </motion.div>
-                
-                {/* Premium Glass Hover Overlay */}
-                <div className="absolute inset-0 bg-[#071321]/30 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20" />
-                
-                <div className="absolute bottom-6 left-6 right-6 z-30">
-                  <h3 className="text-lg font-bold text-white mb-2 text-left group-hover:-translate-y-2 transition-transform duration-300">
-                    {market.name}
-                  </h3>
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    className="text-[10px] font-bold text-secondary uppercase tracking-widest flex items-center gap-1.5 hover:text-white transition-all duration-300"
-                  >
-                    View Market <ArrowRight className="w-3.5 h-3.5" />
-                  </motion.div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-
-      {/* CTA Section */}
-      <section className="px-6 max-w-[1400px] mx-auto w-full py-24 md:py-36">
-        <div className="relative bg-[#C65D29] text-white rounded-2xl px-12 md:px-16 py-12 overflow-hidden flex flex-col xl:flex-row items-center justify-between gap-8 shadow-2xl shadow-[#C65D29]/40">
-          
-          {/* Subtle background gradient/pattern overlay for the right side */}
-          <div className="absolute inset-y-0 right-0 w-[40%] bg-gradient-to-l from-black/10 to-transparent pointer-events-none" />
-          
-          <div className="flex flex-col md:flex-row items-center md:items-center gap-8 md:gap-16 relative z-10">
-            {/* Headline */}
-            <h2 className="text-3xl md:text-[34px] font-heading text-white leading-[1.2] font-serif shrink-0 m-0">
-              Stop managing properties.<br />
-              Start growing your portfolio.
-            </h2>
-            
-            {/* Subheadline */}
-            <p className="text-white/90 font-sans text-[15px] leading-relaxed m-0 text-center md:text-left">
-              Let us handle the day-to-day so you can<br className="hidden md:block" />
-              focus on what matters.
+          <div className="lg:col-span-4">
+            <p className="leading-relaxed text-muted">
+              Tell us about your property and get a free, no-obligation rental analysis within 24 hours.
             </p>
-          </div>
-
-          {/* Button */}
-          <div className="shrink-0 relative z-10 w-full md:w-auto flex justify-center md:justify-end mt-4 xl:mt-0">
-            <Link href="/list-property">
-              <Button variant="secondary" size="lg">
-                Get Free Rental Analysis
-              </Button>
+            <Link href="/list-property" className={`${buttonStyles({ size: "lg" })} mt-6`}>
+              Get a free rental analysis <ArrowRight className="h-5 w-5" />
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
-    </div>
+    </>
   );
 }

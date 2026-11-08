@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -7,47 +7,35 @@ import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   style: ["normal", "italic"],
+  axes: ["opsz", "SOFT"],
 });
 
 export const metadata: Metadata = {
-  title: "Abode Rental | Premium Property Management",
-  description: "High-end property management and luxury rentals.",
+  title: "Abode Rental | Property Management in Charlotte, NC",
+  description:
+    "Full-service property management for Charlotte-area owners: tenant placement, rent collection, maintenance and monthly reporting.",
   openGraph: {
-    title: "Abode Rental | Premium Property Management",
-    description: "High-end property management and luxury rentals.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Abode Rental Property Management",
-      },
-    ],
+    title: "Abode Rental | Property Management in Charlotte, NC",
+    description: "Full-service property management for Charlotte-area owners.",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Abode Rental Property Management" }],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${playfair.variable} h-full antialiased`}
-    >
-      <body className="flex flex-col min-h-screen font-sans bg-background text-foreground overflow-x-hidden selection:bg-secondary/30 selection:text-primary pb-16 md:pb-0">
+    <html lang="en" className={`${manrope.variable} ${fraunces.variable} h-full`}>
+      <body className="flex min-h-screen flex-col overflow-x-hidden bg-paper pb-20 font-sans text-ink selection:bg-brand/25 md:pb-0">
         <Navbar />
-        <main className="flex-1 flex flex-col pt-32">{children}</main>
+        <main className="flex flex-1 flex-col">{children}</main>
         <Footer />
         <StickyMobileCTA />
         <Analytics />
@@ -56,4 +44,3 @@ export default function RootLayout({
     </html>
   );
 }
-
