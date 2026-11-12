@@ -38,7 +38,8 @@ export default function RentalAnalysisPage() {
           <Parallax className="absolute inset-0" strength={10} intro>
             <Image src={photos.hero} alt="Modern home at golden hour" fill preload sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover object-[70%_center]" />
           </Parallax>
-          <div className="absolute inset-0 bg-gradient-to-r from-night via-night/50 to-night/0 max-lg:via-night/80 max-lg:to-night/60" />
+          {/* desktop: photo fades into the dark text panel · phone/tablet: lighter wash so the golden-hour warmth shows */}
+          <div className="absolute inset-0 bg-gradient-to-r from-night via-night/50 to-night/0 max-lg:from-night/85 max-lg:via-night/55 max-lg:to-night/25" />
         </div>
         <div className="site relative pt-32 pb-14 md:pt-40 lg:min-h-[640px] lg:pb-20">
           <div className="hero-rise max-w-xl">

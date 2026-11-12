@@ -47,12 +47,12 @@ export default function Home() {
       <section className="relative -mt-20 overflow-hidden bg-night text-cream md:-mt-24">
         <div className="absolute inset-0">
           <Parallax className="absolute inset-0" strength={10} intro>
-            <Image src={photos.hero} alt="Modern home with warm interior lighting at golden hour" fill preload sizes="100vw" className="object-cover object-[70%_center]" />
+            <Image src={photos.hero} alt="Modern home with warm interior lighting at golden hour" fill preload sizes="100vw" className="object-cover object-[70%_center] max-sm:object-[74%_center]" />
           </Parallax>
-          {/* dark wash only behind the text column so the house stays bright */}
-          {/* desktop: dark only behind the text column · tablet: lighter left-to-right fade · phone: text spans the width, so a softer even wash */}
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--color-night)_0%,rgb(26_31_28/0.82)_28%,rgb(26_31_28/0.25)_52%,transparent_70%)] max-lg:bg-[linear-gradient(90deg,rgb(26_31_28/0.9)_0%,rgb(26_31_28/0.6)_50%,rgb(26_31_28/0.15)_100%)] max-sm:bg-[linear-gradient(180deg,rgb(26_31_28/0.7)_0%,rgb(26_31_28/0.55)_55%,rgb(26_31_28/0.8)_100%)]" />
-          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/70 to-transparent" />
+          {/* Light washes only where text sits, so the golden-hour sky and warm walls stay bright.
+              desktop: behind the text column · tablet: soft left-to-right fade · phone: top (headline) and bottom (icons) only */}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(26_31_28/0.72)_0%,rgb(26_31_28/0.45)_30%,transparent_55%)] max-lg:bg-[linear-gradient(90deg,rgb(26_31_28/0.8)_0%,rgb(26_31_28/0.45)_50%,rgb(26_31_28/0.1)_100%)] max-sm:bg-[linear-gradient(180deg,rgb(26_31_28/0.7)_0%,rgb(26_31_28/0.35)_30%,rgb(26_31_28/0.2)_50%,rgb(26_31_28/0.35)_65%,rgb(26_31_28/0.75)_100%)]" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-night/50 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-night/80 to-transparent" />
         </div>
         {/* thin arc, as in the design */}
