@@ -1,61 +1,120 @@
 @import "tailwindcss";
 
 @theme {
-  /* Draft 2 — dark luxury. Token names kept from draft 1: paper = page background, ink = main text. */
-  --color-paper: #0f1513;
-  --color-stone: #161d1b;
-  --color-ink: #ede6dc;
-  --color-ink-soft: #c9c2b8;
-  --color-muted: #9aa39f;
-  --color-line: rgb(237 230 220 / 0.12);
-  --color-brand: #c47a4c;
-  /* lighter copper for small text on the dark background (AA contrast) */
-  --color-brand-deep: #d9966b;
+  /* Abode design system — dark charcoal-green, warm cream, olive actions, sage accents */
+  --color-night: #1a1f1c;
+  --color-night-2: #232a26;
+  --color-cream: #f3ede3;
+  --color-cream-2: #e8e0d2;
+  --color-ink: #1c211e;
+  --color-olive: #56653f;
+  --color-olive-hover: #66774b;
+  --color-sage: #b9c39b;
+  /* muted text: mist on dark, slate on cream (both AA) */
+  --color-mist: #c8c5bc;
+  --color-slate: #5c605a;
+  --color-line-dark: rgb(255 255 255 / 0.13);
+  --color-line-light: rgb(28 33 30 / 0.13);
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
 }
 
 @layer base {
   *, ::after, ::before, ::backdrop, ::file-selector-button {
-    border-color: var(--color-line);
+    border-color: var(--color-line-light);
   }
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
   }
   body {
-    background-color: var(--color-paper);
+    background-color: var(--color-cream);
     color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Fine film grain over the whole site: makes flat colour feel rich, like printed stock.
+     Plain low opacity (no mix-blend-mode) so it composites once instead of re-blending the viewport every scroll frame. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  ::selection {
+    background: var(--color-sage);
+    color: var(--color-ink);
+  }
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-olive) var(--color-night);
   }
   :focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-olive);
     outline-offset: 3px;
   }
 }
 
 @layer components {
+  .site {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1280px;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .site { padding-inline: 2.5rem; }
+  }
+  /* Small label with a fine leading hairline. */
   .eyebrow {
-    @apply flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-deep;
+    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em];
   }
   .eyebrow::before {
     content: "";
-    @apply block h-px w-8 bg-brand;
+    @apply block h-px w-7 bg-current opacity-60;
   }
+  /* High-contrast display cut of Fraunces at a light weight: the editorial, luxury look. */
   .display {
-    @apply font-serif font-semibold uppercase leading-[0.92] tracking-[-0.015em];
-    font-stretch: 118%;
-    overflow-wrap: break-word; /* wide caps: never let one long word widen the page */
+    @apply font-serif leading-[1.04] tracking-[-0.02em];
+    font-weight: 340;
+    font-variation-settings: "opsz" 144;
+    overflow-wrap: break-word;
+  }
+  .display em {
+    font-weight: 300;
+  }
+  /* Text link with an underline that draws in from the left on hover. */
+  .link-line {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-line:hover,
+  .link-line:focus-visible {
+    background-size: 100% 1px;
   }
   .field {
-    @apply w-full rounded-none border-0 border-b border-line bg-transparent px-0 py-3 text-base text-ink placeholder:text-muted/70 transition-colors focus:border-brand focus:outline-none;
+    @apply h-12 w-full rounded-md border border-line-light bg-white/70 px-4 text-[15px] text-ink transition placeholder:text-slate/70 focus:border-olive focus:bg-white focus:ring-2 focus:ring-olive/20 focus:outline-none;
   }
   .label {
-    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-muted;
+    @apply mb-2 block text-sm font-semibold text-ink;
+  }
+}
+
+/* Hero entrance in pure CSS: plays without JavaScript, so the hero (the LCP element) is never left hidden waiting for scripts. */
+.hero-rise {
+  animation: hero-rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0.01;
+    transform: translateY(18px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .hero-rise { animation: none; }
 }

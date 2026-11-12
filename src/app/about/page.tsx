@@ -1,32 +1,22 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, Clock, HeartHandshake, ShieldCheck, TrendingUp } from "lucide-react";
 import { buttonStyles } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { RevealImage } from "@/components/ui/Parallax";
+import { PageHero, SectionHeading } from "@/components/site/PageHero";
+import { designPhotos } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "About | Abode Rental",
+  description: "Abode Rental helps Charlotte-area investors build wealth without the daily burden of property management.",
+};
 
 const values = [
-  {
-    title: "Asset protection",
-    description:
-      "Preventative maintenance, seasonal audits and routine inspections safeguard your capital and grow your property's value.",
-  },
-  {
-    title: "Careful tenant screening",
-    description:
-      "Every applicant goes through financial and background screening. We only place residents who meet strict credit, income and background criteria.",
-  },
-  {
-    title: "Responsive service",
-    description:
-      "A dedicated local manager and 24/7 emergency dispatch handle maintenance quickly, keeping residents happy and turnover low.",
-  },
-];
-
-const advantages = [
-  { title: "Security", description: "Comprehensive insurance coverage and a rigorous screening process protect your property." },
-  { title: "Return on investment", description: "Strategic pricing and short vacancy periods help you earn the most from your rental." },
-  { title: "24/7 support", description: "Our team is available around the clock for maintenance emergencies and tenant questions." },
-  { title: "Clear communication", description: "Real-time updates on your property's performance through our owner portal." },
+  { title: "Asset Protection", description: "Preventative maintenance, seasonal audits and routine inspections safeguard your capital and grow your property's value." },
+  { title: "Careful Tenant Screening", description: "Every applicant goes through financial and background screening. We only place residents who meet strict credit, income and background criteria." },
+  { title: "Responsive Service", description: "A dedicated local manager and 24/7 emergency dispatch handle maintenance quickly, keeping residents happy and turnover low." },
 ];
 
 const checklist = [
@@ -38,80 +28,66 @@ const checklist = [
   "Vetted local contractor dispatch",
 ];
 
+const advantages = [
+  { icon: ShieldCheck, title: "Security", description: "Comprehensive insurance coverage and a rigorous screening process protect your property." },
+  { icon: TrendingUp, title: "Return on Investment", description: "Strategic pricing and short vacancy periods help you earn the most from your rental." },
+  { icon: Clock, title: "24/7 Support", description: "Our team is available around the clock for maintenance emergencies and tenant questions." },
+  { icon: HeartHandshake, title: "Clear Communication", description: "Regular updates on your property's performance, so you always know where things stand." },
+];
+
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="mx-auto w-full max-w-[1320px] px-5 pt-10 pb-20 md:px-10 md:pt-16 md:pb-28">
-        <Reveal>
-          <p className="eyebrow">Our philosophy</p>
-          <h1 className="display mt-8 max-w-5xl text-[2.2rem] sm:text-6xl lg:text-[5.5rem]">
-            Protecting assets.
-            <br />
-            <span className="italic text-brand">Optimising returns.</span>
-          </h1>
-        </Reveal>
-        <Reveal delay={0.15} className="mt-12 grid gap-8 border-t border-line pt-10 md:grid-cols-12">
-          <p className="text-xl leading-relaxed md:col-span-7 md:text-2xl">
-            Abode was founded with a single mission: to let real estate investors build wealth without the daily burden of
-            property management. We treat every home we look after as a premier asset.
-          </p>
-          <p className="label md:col-span-4 md:col-start-9 md:pt-2">Now serving North Carolina property owners</p>
-        </Reveal>
-      </section>
+      <PageHero
+        crumb="About"
+        title={<>Protecting assets. <em className="text-sage">Optimizing returns.</em></>}
+        intro="Abode was founded with a single mission: to let real estate investors build wealth without the daily burden of property management."
+        image={designPhotos.rowTenant}
+        imageAlt="Well-kept living room"
+      >
+        <Link href="/list-property" className={buttonStyles({ variant: "light", size: "lg" })}>
+          Get Rental Analysis <ArrowUpRight className="h-4 w-4" />
+        </Link>
+      </PageHero>
 
       {/* Values */}
-      <section className="bg-ink text-paper">
-        <div className="mx-auto max-w-[1320px] px-5 py-24 md:px-10 md:py-32">
-          <Reveal className="max-w-2xl">
-            <p className="eyebrow text-paper/60">Our commitments</p>
-            <h2 className="display mt-6 text-[2.25rem] sm:text-5xl md:text-6xl">
-              The <span className="italic text-brand">Abode</span> standard
-            </h2>
-            <p className="mt-6 leading-relaxed text-paper/65">
+      <section className="bg-cream">
+        <div className="site py-20 md:py-28">
+          <Reveal className="grid gap-6 lg:grid-cols-12 lg:items-end">
+            <SectionHeading eyebrow="Our Commitments" title="The Abode Standard" className="lg:col-span-6" />
+            <p className="max-w-md leading-relaxed text-slate lg:col-span-5 lg:col-start-8">
               Attentive service that attracts the market&apos;s most qualified tenants, backed by careful financial tracking.
+              We treat every home we look after as a premier asset.
             </p>
           </Reveal>
-          <div className="mt-16 grid gap-px overflow-hidden rounded-sm bg-paper/15 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
             {values.map((v, i) => (
-              <div key={v.title} className="bg-ink p-8 md:p-10">
-                <Reveal delay={i * 0.1}>
-                  <span className="font-serif text-sm text-paper/40">0{i + 1}</span>
-                  <h3 className="mt-10 font-serif text-3xl">{v.title}</h3>
-                  <p className="mt-4 leading-relaxed text-paper/65">{v.description}</p>
-                </Reveal>
-              </div>
+              <Reveal key={v.title} delay={i * 0.08} className="rounded-lg border p-8">
+                <span className="text-sm text-slate">0{i + 1}</span>
+                <h3 className="mt-6 font-serif text-2xl">{v.title}</h3>
+                <p className="mt-3 leading-relaxed text-slate">{v.description}</p>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Inspection */}
-      <section className="mx-auto w-full max-w-[1320px] px-5 py-24 md:px-10 md:py-36">
-        <div className="grid items-center gap-14 lg:grid-cols-12">
-          <Reveal className="relative aspect-[4/5] overflow-hidden rounded-sm lg:col-span-5">
-            <Image
-              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1000&auto=format&fit=crop"
-              alt="Well-maintained modern kitchen"
-              fill
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover"
-            />
-          </Reveal>
+      <section className="bg-night text-cream">
+        <div className="site grid gap-12 py-20 md:py-28 lg:grid-cols-12 lg:items-center">
+          <RevealImage className="relative aspect-[4/3] rounded-lg lg:col-span-5">
+            <Image src={designPhotos.rowCare} alt="Evening patio at a well-kept home" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
+          </RevealImage>
           <Reveal delay={0.1} className="lg:col-span-6 lg:col-start-7">
-            <p className="eyebrow">Rigorous audits</p>
-            <h2 className="display mt-6 text-[2.25rem] sm:text-5xl md:text-6xl">
-              Our 100-point <span className="italic">inspection</span>
-            </h2>
-            <p className="mt-6 leading-relaxed text-muted">
+            <SectionHeading dark eyebrow="Rigorous Audits" title="Our 100-Point Inspection" />
+            <p className="mt-5 leading-relaxed text-mist">
               Before we take on a property, our team performs a thorough physical evaluation — from structural integrity,
               utilities and water pressure to safety compliance and noise levels.
             </p>
-            <ul className="mt-10 grid gap-x-8 sm:grid-cols-2">
+            <ul className="mt-8 grid gap-x-8 sm:grid-cols-2">
               {checklist.map((item) => (
-                <li key={item} className="flex items-center gap-3 border-t border-line py-4 text-sm font-medium">
-                  <Check className="h-4 w-4 shrink-0 text-brand-deep" />
-                  {item}
+                <li key={item} className="flex items-center gap-3 border-t border-line-dark py-3.5 text-sm">
+                  <Check className="h-4 w-4 shrink-0 text-sage" /> {item}
                 </li>
               ))}
             </ul>
@@ -120,38 +96,30 @@ export default function AboutPage() {
       </section>
 
       {/* Advantages */}
-      <section className="bg-stone">
-        <div className="mx-auto max-w-[1320px] px-5 py-24 md:px-10 md:py-32">
-          <Reveal>
-            <p className="eyebrow">The Abode advantage</p>
-            <h2 className="display mt-6 text-[2.25rem] sm:text-5xl md:text-6xl">Why owners choose us</h2>
-          </Reveal>
-          <div className="mt-14 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
-            {advantages.map((a, i) => (
-              <Reveal key={a.title} delay={i * 0.08} className="border-t border-ink/20 py-8">
-                <h3 className="font-serif text-2xl">{a.title}</h3>
-                <p className="mt-3 leading-relaxed text-muted">{a.description}</p>
-              </Reveal>
+      <section className="bg-cream-2">
+        <div className="site py-20 md:py-24">
+          <SectionHeading eyebrow="The Abode Advantage" title="Why Owners Choose Us" />
+          <ul className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {advantages.map((a) => (
+              <li key={a.title}>
+                <a.icon className="h-7 w-7 stroke-[1.5] text-olive" />
+                <h3 className="mt-4 font-semibold">{a.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate">{a.description}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto w-full max-w-[1320px] px-5 py-24 md:px-10 md:py-32">
-        <Reveal className="grid gap-10 lg:grid-cols-12 lg:items-end">
-          <h2 className="display text-[2.25rem] sm:text-5xl md:text-7xl lg:col-span-8">
-            Ready to protect <span className="italic text-brand">your investment?</span>
-          </h2>
-          <div className="lg:col-span-4">
-            <p className="leading-relaxed text-muted">
-              Send us your property address for a free rental price analysis and management overview.
-            </p>
-            <Link href="/list-property" className={`${buttonStyles({ size: "lg" })} mt-6`}>
-              Get a free analysis <ArrowRight className="h-5 w-5" />
-            </Link>
-          </div>
-        </Reveal>
+      {/* CTA band */}
+      <section className="bg-olive text-cream">
+        <div className="site grid gap-8 py-14 md:py-16 lg:grid-cols-12 lg:items-center">
+          <h2 className="display text-[2.1rem] sm:text-5xl lg:col-span-6">Ready to Protect Your Investment?</h2>
+          <p className="leading-relaxed text-cream/90 lg:col-span-3">Send us your property details for a free rental analysis and management overview.</p>
+          <Link href="/list-property" className={`${buttonStyles({ variant: "light", size: "lg" })} lg:col-span-3 lg:justify-self-end`}>
+            Get Free Analysis <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
       </section>
     </>
   );

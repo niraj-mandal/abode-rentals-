@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Archivo, Manrope } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -12,14 +13,15 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   style: ["normal", "italic"],
-  axes: ["wdth"],
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.aboderental.com"),
   title: "Abode Rental | Property Management in Charlotte, NC",
   description:
     "Full-service property management for Charlotte-area owners: tenant placement, rent collection, maintenance and monthly reporting.",
@@ -32,8 +34,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${archivo.variable} h-full`}>
-      <body className="flex min-h-screen flex-col overflow-x-hidden bg-paper pb-20 font-sans text-ink selection:bg-brand/25 md:pb-0">
+    <html lang="en" className={`${manrope.variable} ${fraunces.variable} h-full`}>
+      <body className="flex min-h-screen flex-col overflow-x-hidden bg-cream pb-20 font-sans text-ink selection:bg-sage/40 md:pb-0">
+        <SmoothScroll />
         <Navbar />
         <main className="flex flex-1 flex-col">{children}</main>
         <Footer />

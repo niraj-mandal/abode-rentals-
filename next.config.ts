@@ -2,12 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-    ],
+    // Every image is served at q90 (Next uses the closest allowed value); the default q75 visibly softened the photos.
+    qualities: [90],
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },
   async headers() {
     return [

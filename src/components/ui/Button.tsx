@@ -1,25 +1,27 @@
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
-type Variant = "primary" | "secondary" | "ghost";
+// primary: olive (main action) · light: cream on dark · ghost: outline on dark · ghostInk: outline on cream
+type Variant = "primary" | "light" | "ghost" | "ghostInk";
 type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand text-paper hover:bg-ink",
-  secondary: "bg-ink text-paper hover:bg-brand",
-  ghost: "border border-ink/40 bg-transparent hover:bg-ink hover:text-paper hover:border-ink",
+  primary: "bg-olive text-cream hover:bg-olive-hover",
+  light: "bg-cream text-ink hover:bg-white",
+  ghost: "border border-white/30 text-cream hover:border-white/60 hover:bg-white/10",
+  ghostInk: "border border-ink/25 text-ink hover:border-ink/50 hover:bg-ink/5",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-11 px-5",
-  md: "h-12 px-6",
-  lg: "h-14 px-5 sm:px-8",
+  sm: "h-10 px-4 text-sm",
+  md: "h-11 px-5 text-sm",
+  lg: "h-13 px-6 text-[15px]",
 };
 
 // Shared so <Link> can look like a button without nesting <button> inside <a>.
 export function buttonStyles({ variant = "primary", size = "md" }: { variant?: Variant; size?: Size } = {}) {
   return cn(
-    "inline-flex select-none whitespace-nowrap items-center justify-center gap-2.5 rounded-none text-[12px] font-bold uppercase tracking-[0.12em] sm:text-[13px] sm:tracking-[0.14em] transition-colors duration-300 disabled:pointer-events-none disabled:opacity-40",
+    "group/btn inline-flex select-none items-center justify-center gap-2.5 whitespace-nowrap rounded-md font-semibold transition-[background-color,color,border-color,transform] duration-300 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40 [&_svg]:transition-transform [&_svg]:duration-300 hover:[&_svg]:translate-x-0.5 hover:[&_svg]:-translate-y-px",
     variants[variant],
     sizes[size],
   );
